@@ -1,0 +1,15 @@
+{
+  "name": "travelexperts",
+  "version": "1.0.0",
+  "description": "Proposal for Travel Experts contract",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nate Penner, Guri Kaur Pawar, William Rust III",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  }
+}
