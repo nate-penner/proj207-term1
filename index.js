@@ -18,9 +18,9 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
-// app.get('*', (req, res) => {
-//    res.render('404', {message: `No route to ${req.url}`});
-// });
+app.get('*', (req, res) => {
+   res.render('404', {message: `No route to ${req.url}`});
+});
 
 const server = http.createServer(app).listen(56789);
 console.log('Listening on localhost:56789...');
