@@ -1,6 +1,5 @@
 const express = require('express');
 const mysql = require('mysql');
-const http = require('http');
 
 const app = express();
 
@@ -12,6 +11,7 @@ app.use((req, res, next) => {
     next();
 });
 
+// Serves static files
 app.use('/assets', express.static('assets'));
 
 app.get('/', (req, res) => {
@@ -22,5 +22,6 @@ app.get('*', (req, res) => {
    res.render('404', {message: `No route to ${req.url}`});
 });
 
-const server = http.createServer(app).listen(56789);
+// Start the application
+app.listen(56789);
 console.log('Listening on localhost:56789...');
