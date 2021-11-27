@@ -1,10 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 99%;
+            background-color: deepskyblue;
+            border-style: double;
+            border-radius: 5px;
+            border-color: #fa5c29;
+        }
 
-    </body>
+        footer div {
+            width:30%;
+            height: 90%;
+            display:inline-block;
+        }
+
+        footer ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #external{
+            float:left;
+        }
+
+        li a{
+            display: block;
+            color: #fa5c29;
+            text-align: center;
+            padding: 20px 20px 40px;
+
+        }
+
+        li a:hover {
+            background-color: #00aae6
+        }
+    </style>
+
+</head>
+<body>
+
+<footer>
+    <div>
+        <h4><u>External Links</u></h4>
+        <ul>
+            <li id="external"> <a href="https://www.sait.ca/"><b>SAIT</b></a></li>
+            <li id="external"> <a href="https://www.destinationcanada.com/en"><b>Destination Canada</b></a></li>
+            <li id="external"> <a href="https://www.japan.travel/en/ca/"><b>Travel Japan</b></a></li>
+        </ul>
+    </div>
+
+
+    <div>
+        <h4 style="position:absolute; bottom:90px"><u>Call us!</u></h4>
+        <br/>
+        <h3  style="position:absolute; bottom:25px; color: #fa5c29">403-555-5555</h3>
+    </div>
+
+    <div style="float:right">
+        <img style="float:right" src="Media/Icons/TempLogo.jpg" alt="Image cannot be displayed">
+        <p style="right:5px; position: absolute; bottom:0;">&#169; Copyright 2021 Travel Experts</p>
+
+    </div>
+
+
+
+
+</footer>
+
+</body>
 </html>
