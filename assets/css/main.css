@@ -1,0 +1,43 @@
+/* This file is for global CSS style rules that apply on every page of the website */
+
+/* header styles */
+
+/* footer styles */
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 99%;
+    background-color: deepskyblue;
+    border-style: double;
+    border-radius: 5px;
+    border-color: #fa5c29;
+}
+
+footer div {
+    width:30%;
+    height: 90%;
+    display:inline-block;
+}
+
+footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#external{
+    float:left;
+}
+
+li a{
+    display: block;
+    color: #fa5c29;
+    text-align: center;
+    padding: 20px 20px 40px;
+
+}
+
+li a:hover {
+    background-color: #00aae6
+}

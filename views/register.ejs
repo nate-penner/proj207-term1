@@ -1,197 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel = "icon" href = "Media/Icons/TempLogo.jpg"></link>
-    <title>Register</title>
-    <script>
-        var fieldInfo = ["Enter First Name", "Enter Last Name", "Postal Code format is 'A9A 9A9'", "Enter Address", "Enter City", "Enter Email"];
+    <head>
+        <meta charset="UTF-8">
+        <link rel = "icon" href = "../media/icons/TempLogo.jpg"></link>
+        <title>Register</title>
+        <script>
+            var fieldInfo = ["Enter First Name", "Enter Last Name", "Postal Code format is 'A9A 9A9'", "Enter Address", "Enter City", "Enter Email"];
 
-        function showInfo(index)
-        {
-            var para = document.getElementById("info");
-            para.innerHTML = fieldInfo[index];
-            para.style.visibility = "visible";
-        }
-
-        function hideInfo()
-        {
-            var para = document.getElementById("info");
-            para.innerHTML = "";
-            para.style.visibility = "hidden";
-        }
-
-        function validate()
-        {
-            document.getElementById("message").innerHTML = "";
-            var form1 = document.forms[0];
-            var message = "";
-
-            if (form1.fname.value == "")
+            function showInfo(index)
             {
-                message += "First name must have a value;  ";
-                form1.fname.focus();
+                var para = document.getElementById("info");
+                para.innerHTML = fieldInfo[index];
+                para.style.visibility = "visible";
             }
 
-            if (form1.lname.value == "")
+            function hideInfo()
             {
-                message += "Last name must have a value;  ";
-                form1.lname.focus();
+                var para = document.getElementById("info");
+                para.innerHTML = "";
+                para.style.visibility = "hidden";
             }
 
-            if (form1.postal.value == "")
+            function validate()
             {
-                message += "Postal Code must have a value;  ";
-                form1.postal.focus();
-            }
-            else
-            {
-                var myPostal = form1.postal.value;
-                form1.postal.value = myPostal.toUpperCase();
-                var reg = /^[a-z]\d[a-z][ -]?\d[a-z]\d$/i;
-                if (!reg.test(form1.postal.value))
+                document.getElementById("message").innerHTML = "";
+                var form1 = document.forms[0];
+                var message = "";
+
+                if (form1.fname.value == "")
                 {
-                    message += "Postal code has invalid format;  ";
+                    message += "First name must have a value;  ";
+                    form1.fname.focus();
+                }
+
+                if (form1.lname.value == "")
+                {
+                    message += "Last name must have a value;  ";
+                    form1.lname.focus();
+                }
+
+                if (form1.postal.value == "")
+                {
+                    message += "Postal Code must have a value;  ";
                     form1.postal.focus();
                 }
-            }
-
-            if (form1.address.value == "")
-            {
-                message += "Address must have a value;  ";
-                form1.address.focus();
-            }
-
-            if (form1.city.value == "")
-            {
-                message += "City must have a value;  ";
-                form1.address.focus();
-            }
-
-            if (form1.email.value == "")
-            {
-                message += "Email must have a value;  ";
-                form1.email.focus();
-            }
-            else
-            {
-                var myEmail = form1.email.value;
-                var reg = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-                if (!reg.test(form1.email.value))
+                else
                 {
-                    message += "Invalid email;  ";
+                    var myPostal = form1.postal.value;
+                    form1.postal.value = myPostal.toUpperCase();
+                    var reg = /^[a-z]\d[a-z][ -]?\d[a-z]\d$/i;
+                    if (!reg.test(form1.postal.value))
+                    {
+                        message += "Postal code has invalid format;  ";
+                        form1.postal.focus();
+                    }
+                }
+
+                if (form1.address.value == "")
+                {
+                    message += "Address must have a value;  ";
+                    form1.address.focus();
+                }
+
+                if (form1.city.value == "")
+                {
+                    message += "City must have a value;  ";
+                    form1.address.focus();
+                }
+
+                if (form1.email.value == "")
+                {
+                    message += "Email must have a value;  ";
                     form1.email.focus();
                 }
-            }
-            if (message != "")
-            {
-                document.getElementById("message").innerHTML = message;
-            }
-            else
-            {
-                if (confirm("Form values are okay. Continue Submitting?"))
+                else
                 {
-                    form1.submit();
+                    var myEmail = form1.email.value;
+                    var reg = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+                    if (!reg.test(form1.email.value))
+                    {
+                        message += "Invalid email;  ";
+                        form1.email.focus();
+                    }
+                }
+                if (message != "")
+                {
+                    document.getElementById("message").innerHTML = message;
+                }
+                else
+                {
+                    if (confirm("Form values are okay. Continue Submitting?"))
+                    {
+                        form1.submit();
+                    }
                 }
             }
-        }
-    </script>
-    <style>
-        #info {
-            position: absolute;
-            top: 350px;
-            left: 400px;
-            background-color: violet;
-            font-size: larger;
-            z-index: 1;
-        }
+        </script>
+        <style>
+            #info {
+                position: absolute;
+                top: 350px;
+                left: 400px;
+                background-color: violet;
+                font-size: larger;
+                z-index: 1;
+            }
 
-        body {
-            background-image: url("media/images/background.png");
-        }
+            body {
+                background-image: url("../media/images/background.png");
+            }
 
-        #message {
-            color:white;
-            background-color: crimson;
-            position: absolute;
-            top: 200px;
-            z-index: 1;
-        }
+            #message {
+                color:white;
+                background-color: crimson;
+                position: absolute;
+                top: 200px;
+                z-index: 1;
+            }
 
-        #regiform {
-            position: absolute;
-            left: 20px;
-        }
+            #regiform {
+                position: absolute;
+                left: 20px;
+            }
 
-        footer {
-            position: absolute;
-            bottom: 10px;
-        }
+            footer {
+                position: absolute;
+                bottom: 10px;
+            }
 
-        #sky {
-            position: absolute;
-            right: 10px;
-            top: 100px;
-            max-width: 60%;
-            height: auto;
-            z-index: 0;
-        }
-    </style>
-</head>
-<header>
-    &#160;&#160;<a href="index.html">Home</a>&#160;&#160;
-    <a href="contact.html">Contact Us</a>
-    <h2>
-        <img src="Media/Icons/TempLogo.jpg" width="50" height="50" /> Welcome to Travel Experts
-    </h2>
-</header>
-<nav>
+            #sky {
+                position: absolute;
+                right: 10px;
+                top: 100px;
+                max-width: 60%;
+                height: auto;
+                z-index: 0;
+            }
+        </style>
+    </head>
+    <header>
+        &#160;&#160;<a href="index.html">Home</a>&#160;&#160;
+        <a href="contact.html">Contact Us</a>
+        <h2>
+            <img src="../media/icons/TempLogo.jpg" width="50" height="50" /> Welcome to Travel Experts
+        </h2>
+    </header>
+    <nav>
+        <p id="message"></p>
+        <p id="info"></p>
+    </nav>
+    <body>
+
+    <h1 style="text-decoration:underline; text-decoration-color:orange; color:rgb(59, 15, 59)">Registration</h1>
     <p id="message"></p>
     <p id="info"></p>
-</nav>
-<body>
+    <br /><br /><br />
+    <form method="get" action="bouncer.php" id=regiform>
+        First Name:<input type="text" name="fname" onfocus="showInfo(0)" onblur="hideInfo()"/><br />
+        Last Name:<input type="text" name="lname" onfocus="showInfo(1)" onblur="hideInfo()"/><br />
+        Postal Code:<input type="text" name="postal" onfocus="showInfo(2)" onblur="hideInfo()"/><br />
+        Address:<input type="text" name="address" onfocus="showInfo(3)" onblur="hideInfo()"/><br />
+        City:<input type="text" name="city" onfocus="showInfo(4)" onblur="hideInfo()"/><br />
+        Email:<input type="text" name="email" onfocus="showInfo(5)" onblur="hideInfo()"/><br />
+        <label for="prov">Province: </label>
+        <select name="province">
+            <option value="AB">Alberta</option>
+            <option value="BC">British Columbia</option>
+            <option value="MA">Manitoba</option>
+            <option value="NB">New Brunswick</option>
+            <option value="NF">Newfoundland/Labrador</option>
+            <option value="NT">Northwest Territories</option>
+            <option value="NS">Nova Scotia</option>
+            <option value="NU">Nunavut</option>
+            <option value="ON">Ontario</option>
+            <option value="PE">Prince Edward Island</option>
+            <option value="QU">Quebec</option>
+            <option value="SA">Saskatchewan</option>
+            <option value="YU">Yukon</option>
+        </select><br/><br/>
 
-<h1 style="text-decoration:underline; text-decoration-color:orange; color:rgb(59, 15, 59)">Registration</h1>
-<p id="message"></p>
-<p id="info"></p>
-<br /><br /><br />
-<form method="get" action="bouncer.php" id=regiform>
-    First Name:<input type="text" name="fname" onfocus="showInfo(0)" onblur="hideInfo()"/><br />
-    Last Name:<input type="text" name="lname" onfocus="showInfo(1)" onblur="hideInfo()"/><br />
-    Postal Code:<input type="text" name="postal" onfocus="showInfo(2)" onblur="hideInfo()"/><br />
-    Address:<input type="text" name="address" onfocus="showInfo(3)" onblur="hideInfo()"/><br />
-    City:<input type="text" name="city" onfocus="showInfo(4)" onblur="hideInfo()"/><br />
-    Email:<input type="text" name="email" onfocus="showInfo(5)" onblur="hideInfo()"/><br />
-    <label for="prov">Province: </label>
-    <select name="province">
-        <option value="AB">Alberta</option>
-        <option value="BC">British Columbia</option>
-        <option value="MA">Manitoba</option>
-        <option value="NB">New Brunswick</option>
-        <option value="NF">Newfoundland/Labrador</option>
-        <option value="NT">Northwest Territories</option>
-        <option value="NS">Nova Scotia</option>
-        <option value="NU">Nunavut</option>
-        <option value="ON">Ontario</option>
-        <option value="PE">Prince Edward Island</option>
-        <option value="QU">Quebec</option>
-        <option value="SA">Saskatchewan</option>
-        <option value="YU">Yukon</option>
-    </select><br/><br/>
-
-    <label for="Ads">Sign up for our newsletter for<br /> exclusive deals and savings!: </label>
-    <input type="checkbox" name="Ads" value="yes" checked="checked"/><br/><br/>
-    <button type="button" onclick="validate()">Send</button>
-    <button type="reset" onclick="return confirm('Reset form?');">Reset</button>
-</form>
-<aside>
-    <img id="sky" src="Media/Images/skybackground.jpg">
-</aside>
-<footer>
-    &#160;&#160;<a href="index.html">Home</a>&#160;&#160;
-    <a href="contact.html">Contact Us</a>&#160;&#160;
-    <br/><br/><br/>
-    &#169; Copyright 2021 All rights reserved.
-</footer>
-</body>
+        <label for="Ads">Sign up for our newsletter for<br /> exclusive deals and savings!: </label>
+        <input type="checkbox" name="Ads" value="yes" checked="checked"/><br/><br/>
+        <button type="button" onclick="validate()">Send</button>
+        <button type="reset" onclick="return confirm('Reset form?');">Reset</button>
+    </form>
+    <aside>
+        <img id="sky" src="../media/images/skybackground.jpg">
+    </aside>
+    <footer>
+        &#160;&#160;<a href="index.html">Home</a>&#160;&#160;
+        <a href="contact.html">Contact Us</a>&#160;&#160;
+        <br/><br/><br/>
+        &#169; Copyright 2021 All rights reserved.
+    </footer>
+    </body>
 </html>
