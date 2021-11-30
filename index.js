@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
+const vacations = require('./middleware/vacations');
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use((req, res, next) => {
 // Serves static files
 app.use('/assets', express.static('assets'));
 app.use('/media', express.static('media'));
+
+app.use('/vacations', vacations);
 
 app.get('/', (req, res) => {
     res.render('index');

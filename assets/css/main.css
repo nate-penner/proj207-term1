@@ -1,5 +1,14 @@
 /* This file is for global CSS style rules that apply on every page of the website */
 
+/* Universal styles */
+* {
+    transition: ease all 0.5s;
+    -webkit-tap-highlight-color: transparent;
+}
+body {
+    font-family: "Noto Sans", sans-serif;
+}
+
 /* header styles */
 
 /* footer styles */
