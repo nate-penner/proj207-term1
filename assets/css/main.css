@@ -10,7 +10,55 @@ body {
 }
 
 /* header styles */
+header {
+    width: 10vw;
+    height: 10vw;
+    display: grid;
+    background-color: #1f1f1f;
+    position: fixed;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    transition: none;
+}
+html, body {
+    width: 100vw;
+    height: 100vh;
+}
+body > nav {
+    visibility: hidden;
+    width: 50vw;
+    position: fixed;
+    top: 10vw;
+    left: 0;
+    background-color: #f1f1f1;
+}
+body > nav ul {
+    display: grid;
+    grid-template-rows: min-content;
+    justify-self: center;
+    align-self: center;
+}
+body > nav ul li {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    padding: 1em 0 1em 0;
+    cursor: pointer;
+}
+body > nav ul li:hover {
+    background-color: darkgray;
+}
+header h1 {
+    color: aliceblue;
+    justify-self: center;
+    align-self: center;
+}
 
+#main-content {
+    margin-top: 10vw;
+}
 /* footer styles */
 footer {
     position: absolute;

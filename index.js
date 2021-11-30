@@ -1,7 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql');
+const argv = require('./argv');
 const vacations = require('./middleware/vacations');
 
+let HTTP_PORT;
+console.log('stuff happened');
+console.log(argv);
+if ('http-port' in argv)
+    HTTP_PORT = argv['http-port'];
+else
+    HTTP_PORT = process.env.HTTP_PORT;
+
+const HOST = process.env.HOST;
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -27,5 +38,5 @@ app.get('*', (req, res) => {
 });
 
 // Start the application
-app.listen(56789);
-console.log('Listening on localhost:56789...');
+app.listen(HTTP_PORT);
+console.log(`Listening on ${HOST}:${HTTP_PORT}...`);

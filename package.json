@@ -4,13 +4,15 @@
   "description": "Proposal for Travel Experts contract",
   "main": "index.js",
   "scripts": {
-    "test": "npm index.js"
+    "test": "node index.js"
   },
   "author": "Nate Penner, Guri Kaur Pawar, William Rust III, Joshua Zellmer",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "yargs": "^17.2.1"
   }
 }
