@@ -30,6 +30,7 @@ app.use('/media', express.static('media'));
 
 // Load apps
 apps.loadInto(app);
+
 // app.use('/vacations', vacations);
 
 app.get('/', (req, res) => {
