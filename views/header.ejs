@@ -1,14 +1,88 @@
 <!-- This page should only contain the code for the header of the page, like the logo, title, and navigation menu.
 -->
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>Header</title>
+
+    <style>
+        header {
+            top:0;
+            position: absolute;
+            width: 99%;
+            border-style: double;
+            border-radius: 5px;
+            border-color:  #fa5c29;
+            background-color: deepskyblue;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-gap: 10px;
+            padding: 10px;
+        }
+
+        .grid-container > div {
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .links {
+            position: relative;
+            padding: 20px 40px 40px 40px;
+            top: 20px;
+        }
+
+        .login {
+            position:absolute;
+            top:0;
+            right:0;
+            font-size: 15px;
+        }
+
+        a.login {
+            color:black;
+        }
+
+        .links:hover {
+            background-color: #00aae6
+        }
+
+        body {
+            background-color: rgb(194, 233, 254)
+        }
+
+    </style>
+
+</head>
+
+
+<body>
 <header>
-    <h1>&gt;</h1>
+    <div class="grid-container">
+        <div>
+            <a class="logo" href="/"> <img src="media/icons/TempLogo.jpg" alt="Home Logo failed to load" style="float:left"></a>
+            <span style="font-size: 50px; color: gray;"><b><i>Travel Experts</i></b></span>
+        </div>
+
+        <div>
+            <nav>
+                <a class="links" href="/Packages">Vacation Packages</a>
+                <a class="links" href="/Registration">Registration</a>
+                <a class="links" href="/Contact">Contact Us</a>
+            </nav>
+        </div>
+
+        <div class="login">
+            <a class="login" href="login">Login</a>
+        </div>
+
+    </div>
+
 </header>
 
-<nav>
-    <ul>
-        <li>Home</li>
-        <li>Vacations</li>
-        <li>About Us</li>
-        <li>Contact</li>
-    </ul>
-</nav>
+</body>
+</html>
