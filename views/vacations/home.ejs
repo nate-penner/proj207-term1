@@ -17,17 +17,35 @@
                 text-align: center;
                 font-size: 1.5em;
             }
+            .content1-left {
+                background-color: red;
+                text-align: center;
+                height: 3em;
+            }
+            .content1-center {
+                background-color: green;
+                text-align: center;
+                height: 3em;
+            }
+            .content1-right {
+                background-color: purple;
+                text-align: center;
+                height: 3em;
+            }
         </style>
     </head>
     <body>
-        <%- include('../header') %>
+        <div class="container-fluid">
+            <p>Hi there, this is some <abbr title="text means this is a paragraph">text</abbr></p>
+            <p>Hi there, this is some <abbr title="text means this is a paragraph">text</abbr></p>
+            <p>Hi there, this is some <blockquote class="blockquote-footer">text</blockquote></p>
+<!--            <div id="site-container">
+                <section id="main-content">
+                    <h1>Package Deals</h1>
+                </section>
+            </div>-->
 
-        <div id="site-container">
-            <section id="main-content">
-                <h1>Package Deals</h1>
-            </section>
+
         </div>
-
-        <%- include('../footer') %>
     </body>
 </html>

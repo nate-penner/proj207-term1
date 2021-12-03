@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql');
 const argv = require('./argv');
-const vacations = require('./middleware/vacations');
+const vacations = require('./apps/vacations');
+const apps = require('./apps');
 
 let HTTP_PORT;
 console.log('stuff happened');
@@ -27,10 +28,13 @@ app.use((req, res, next) => {
 app.use('/assets', express.static('assets'));
 app.use('/media', express.static('media'));
 
-app.use('/vacations', vacations);
+// Load apps
+apps.loadInto(app);
+// app.use('/vacations', vacations);
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.redirect('/home');
+    // res.render('index');
 });
 
 app.get('*', (req, res) => {
