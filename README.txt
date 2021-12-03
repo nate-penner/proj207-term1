@@ -1,3 +1,5 @@
+!!!IMPORTANT type 'npm install' to make sure you have all the dependencies installed!
+
 For the sake of consistency, I propose that we avoid using any uppercase letters in directory and file names to
 proactively avoid any potential bugs caused by case-sensitivity mismatches.
 
