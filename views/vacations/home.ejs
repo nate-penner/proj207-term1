@@ -2,50 +2,58 @@
 <html lang="en">
     <head>
         <%- include('../meta') %>
-        <title>Travel Experts - <%= pageTitle %></title>
+        <title>Travel Experts<%= pageTitle %></title>
         <%- include('../stylesheets') %>
         <%- include('../scripts') %>
         <style>
-            #site-container {
-                width: 90vw;
-                margin: 0 auto;
-            }
             #main-content {
                 display: grid;
+                width: 75%;
+                margin: 0 auto;
             }
-            #main-content h1 {
+            #main-content > h1 {
                 text-align: center;
                 font-size: 1.5em;
+                font-weight: bold;
+                margin-bottom: 1em;
             }
-            .content1-left {
-                background-color: red;
-                text-align: center;
-                height: 3em;
+            .vacation-package {
+                border: 1px solid black;
+                border-radius: 0.5em;
+                padding: 1em;
+                margin-bottom: 1em;
             }
-            .content1-center {
-                background-color: green;
-                text-align: center;
-                height: 3em;
+            .vacation-package:hover {
+                cursor: pointer;
+                background-color: #86b7fe;
             }
-            .content1-right {
-                background-color: purple;
-                text-align: center;
-                height: 3em;
+            .vacation-package h1 {
+                text-align: left;
+                font-size: 1.25em;
+                font-weight: bold;
+                margin-bottom: 0.5em;
             }
+            .vacation-package p {
+                font-style: italic;
+                margin-bottom: 0.5em;
+            }
+            .vacation-package span {}
         </style>
     </head>
     <body>
-        <div class="container-fluid">
-            <p>Hi there, this is some <abbr title="text means this is a paragraph">text</abbr></p>
-            <p>Hi there, this is some <abbr title="text means this is a paragraph">text</abbr></p>
-            <p>Hi there, this is some <blockquote class="blockquote-footer">text</blockquote></p>
-<!--            <div id="site-container">
-                <section id="main-content">
-                    <h1>Package Deals</h1>
-                </section>
-            </div>-->
+        <%- include('../header') %>
 
+        <section id="main-content">
+            <h1>Vacation Packages</h1>
+            <% vacations.forEach((vacation) => { %>
+                <article class="vacation-package">
+                    <h1><%= vacation.PkgName %></h1>
+                    <p><%= vacation.PkgDesc %></p>
+                    <span>Price: $<%= vacation.PkgBasePrice %></span>
+                </article>
+            <% }); %>
+        </section>
 
-        </div>
+        <%- include('../footer') %>
     </body>
 </html>

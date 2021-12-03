@@ -19,10 +19,10 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(express.urlencoded());
 app.use(express.json());
-app.use((req, res, next) => {
-    console.log(`Incoming connection from ${req.socket.remoteAddress}:${req.socket.remotePort}`);
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log(`Incoming connection from ${req.socket.remoteAddress}:${req.socket.remotePort}`);
+//     next();
+// });
 
 // Serves static files
 app.use('/assets', express.static('assets'));
