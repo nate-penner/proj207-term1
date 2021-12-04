@@ -54,9 +54,16 @@
                 margin-top: 1em;
             }
             .vacation-package .package-images img {
-                max-width: 10%;
                 display: block;
-                float: left;
+                max-width: 75%;
+                margin: 0.5em auto 0 auto;
+            }
+            @media only screen and (min-width: 1000px) {
+                .vacation-package .package-images img {
+                    max-width: 25%;
+                    margin: 0;
+                    float: left;
+                }
             }
         </style>
         <script src="/assets/scripts/vacations.js"></script>
