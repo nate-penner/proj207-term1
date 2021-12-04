@@ -26,7 +26,8 @@ router.get('/', (req, res) => {
             });
         }
         conn.end((err) => {
-            console.log('Something went wrong.');
+            if (err)
+                console.log(`Problem ending the connection: ${err}`);
         });
     });
 });
