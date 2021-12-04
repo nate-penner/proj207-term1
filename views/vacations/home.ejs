@@ -20,25 +20,46 @@
             .vacation-package {
                 border: 1px solid black;
                 border-radius: 0.5em;
-                padding: 1em;
                 margin-bottom: 1em;
+                padding: 1em;
             }
             .vacation-package:hover {
                 cursor: pointer;
                 background-color: #86b7fe;
             }
-            .vacation-package h1 {
+            .vacation-package .package-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .vacation-package .package-info h1 {
                 text-align: left;
                 font-size: 1.25em;
                 font-weight: bold;
                 margin-bottom: 0.5em;
             }
-            .vacation-package p {
+            .vacation-package .package-info p {
                 font-style: italic;
                 margin-bottom: 0.5em;
             }
-            .vacation-package span {}
+            .vacation-package .package-info span {}
+            .vacation-package .order-package {
+                justify-self: center;
+                align-self: center;
+            }
+            .vacation-package .order-package button {
+
+            }
+            .vacation-package .package-images {
+                display: none;
+                margin-top: 1em;
+            }
+            .vacation-package .package-images img {
+                max-width: 10%;
+                display: block;
+                float: left;
+            }
         </style>
+        <script src="/assets/scripts/vacations.js"></script>
     </head>
     <body>
         <%- include('../header') %>
@@ -46,10 +67,24 @@
         <section id="main-content">
             <h1>Vacation Packages</h1>
             <% vacations.forEach((vacation) => { %>
-                <article class="vacation-package">
-                    <h1><%= vacation.PkgName %></h1>
-                    <p><%= vacation.PkgDesc %></p>
-                    <span>Price: $<%= vacation.PkgBasePrice %></span>
+                <article id="package-<%= vacation.PackageId %>" class="vacation-package">
+                    <div class="package-container">
+                        <div class="package-info">
+                            <h1><%= vacation.PkgName %></h1>
+                            <p><%= vacation.PkgDesc %></p>
+                            <span>Price: $<%= vacation.PkgBasePrice %></span>
+                        </div>
+                        <div>
+                        </div>
+                        <div class="order-package">
+                            <button>Order Now!</button>
+                        </div>
+                    </div>
+                    <div id="package-images-<%= vacation.PackageId %>" class="package-images">
+                        <% vacation.images.forEach((image) => {%>
+                        <img src="<%= image %>">
+                        <% }); %>
+                    </div>
                 </article>
             <% }); %>
         </section>
