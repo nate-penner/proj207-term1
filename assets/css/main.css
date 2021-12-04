@@ -6,6 +6,7 @@
         transition: ease all 0.5s;
         -webkit-tap-highlight-color: transparent;
     }
+
     body {
         font-family: "Noto Sans", sans-serif;
         background-color: rgb(194, 233, 254);
@@ -26,6 +27,7 @@
         left: 0;
         top: 0;
     }
+
     #page-header .banner {
         width: 100%;
         height: 100%;
@@ -42,6 +44,7 @@
         text-align: center;
         vertical-align: middle;
     }
+
     #page-header > nav {
         width: 100%;
         height: 100%;
@@ -50,6 +53,7 @@
         /*justify-items: stretch;*/
         /*align-items: stretch;*/
     }
+
     #page-header > nav > .links {
         /*padding: 40px 20px;*/
         box-sizing: content-box;
@@ -66,7 +70,7 @@
     }
 
     #page-header .login {
-        color:black;
+        color: black;
         /*display: block;*/
         box-sizing: border-box;
         text-align: right;
@@ -74,6 +78,7 @@
         /*margin-right: 1em;*/
         /*margin-top: 1em;*/
     }
+
     #page-header .login img {
         justify-self: right;
         filter: invert(100%) sepia(4%) saturate(3442%) hue-rotate(177deg) brightness(108%) contrast(100%);
@@ -84,43 +89,40 @@
         border-bottom: 0.15em solid white;
     }
 
-    /* footer styles */
-    footer {
+
+    #external {
+        float: left;
+    }
+
+    #page-footer {
         position: absolute;
+        left: 0;
         bottom: 0;
-        width: 99%;
-        background-color: deepskyblue;
-        border-style: double;
-        border-radius: 5px;
-        border-color: #fa5c29;
+        width: 100%;
+        border-top: 5px solid;
+
     }
 
-    footer div {
-        width:30%;
-        height: 90%;
-        display:inline-block;
+    .foot-grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-gap: 5px;
+        grid-auto-rows: 50px;
+        background-color: blue;
     }
 
-    footer ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-    }
-
-    #external{
-        float:left;
-    }
-
-    li a{
-        display: block;
-        color: #fa5c29;
+    .foot-grid-container > div {
+        background-color: white;
         text-align: center;
-        padding: 20px 20px 40px;
-
+        padding: 20px 0;
+        font-size: 20px;
     }
 
-    li a:hover {
-        background-color: #00aae6
+    .footbox2 {
+        grid-area: 1 / 2 / span 2 / span 1;
+    }
+
+    .footbox4 {
+        grid-area: 1 / 4 / span 2 / span 1;
     }
 }
