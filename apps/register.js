@@ -74,12 +74,6 @@ function verifyData(customer)
 // convert form data into JSON object
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/register", (req, res)=>{
-    res.sendFile(__dirname + "/register.ejs", function (err) {
-        if (err) throw err; // Pass errors to Express.
-    });
-});
-
 app.post("/newcustomer", (req, res)=>{
     //pass the request body to a verification function, and if it is okay, update the database
     console.log("Body: " + req.body);
