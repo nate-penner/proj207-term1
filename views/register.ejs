@@ -5,11 +5,11 @@
         <link rel = "icon" href = "../media/icons/TempLogo.jpg"></link>
         <title>Register</title>
         <script>
-            let fieldInfo = ["Enter First Name", "Enter Last Name", "Postal Code format is 'A9A 9A9'", "Enter Address", "Enter City", "Enter Email"];
+            let fieldInfo = ["Enter First Name", "Enter Last Name", "Postal Code format is 'A9A 9A9'", "Enter Address", "Enter City", "Enter Home Phone", "Enter Business Phone", "Enter Email"];
 
             function showInfo(index)
             {
-                var para = document.getElementById("info");
+                let para = document.getElementById("info");
                 para.innerHTML = fieldInfo[index];
                 para.style.visibility = "visible";
             }
@@ -27,66 +27,93 @@
                 let form1 = document.forms[0];
                 let message = "";
 
-                if (form1.fname.value == "")
+                if (form1.CustFirstName.value == "")
                 {
                     message += "First name must have a value;  ";
-                    form1.fname.focus();
+                    form1.CustFirstName.focus();
                 }
 
-                if (form1.lname.value == "")
+                if (form1.CustLastName.value == "")
                 {
                     message += "Last name must have a value;  ";
-                    form1.lname.focus();
+                    form1.CustLastName.focus();
                 }
 
-                if (form1.postal.value == "")
+                if (form1.CustPostal.value == "")
                 {
                     message += "Postal Code must have a value;  ";
-                    form1.postal.focus();
+                    form1.CustPostal.focus();
                 }
                 else
                 {
-                    let myPostal = form1.postal.value;
+                    let myPostal = form1.CustPostal.value;
                     form1.postal.value = myPostal.toUpperCase();
                     let regPostal = /^[a-z]\d[a-z][ -]?\d[a-z]\d$/i;
                     if (!regPostal.test(form1.postal.value))
                     {
                         message += "Postal code has invalid format;  ";
-                        form1.postal.focus();
+                        form1.CustPostal.focus();
                     }
                 }
 
-                if (form1.address.value == "")
+                if (form1.CustAddress.value == "")
                 {
                     message += "Address must have a value;  ";
-                    form1.address.focus();
+                    form1.CustAddress.focus();
                 }
 
-                if (form1.city.value == "")
+                if (form1.CustCity.value == "")
                 {
                     message += "City must have a value;  ";
-                    form1.address.focus();
+                    form1.CustCity.focus();
                 }
 
-                if (form1.email.value == "")
+                if (form1.CustCountry.value == "")
+                {
+                    message += "Country must have a value;  ";
+                    form1.CustCountry.focus();
+                }
+
+                if (form1.CustHomePhone.value == "")
+                {
+                    message += "Home Phone must have a value;  ";
+                    form1.CustHomePhone.focus();
+                }
+
+                if (form1.CustBusPhone.value == "")
+                {
+                    message += "Business Phone must have a value;  ";
+                    form1.CustBusPhone.focus();
+                }
+
+                if (form1.CustEmail.value == "")
                 {
                     message += "Email must have a value;  ";
-                    form1.email.focus();
+                    form1.CustEmail.focus();
                 }
+
                 else
                 {
-                    let myEmail = form1.email.value;
+                    let myEmail = form1.CustEmail.value;
                     let regEmail = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-                    if (!regEmail.test(form1.email.value))
+                    if (!regEmail.test(form1.CustEmail.value))
                     {
                         message += "Invalid email;  ";
                         form1.email.focus();
                     }
                 }
+
+                if (form1.AgentId.value == "")
+                {
+                    message += "Agent ID must have a value;  ";
+                    form1.AgentId.focus();
+                }
+
                 if (message != "")
                 {
                     document.getElementById("message").innerHTML = message;
                 }
+
                 else
                 {
                     if (confirm("Form values are okay. Continue Submitting?"))
@@ -156,13 +183,12 @@
     <p id="info"></p>
     <br /><br /><br />
     <form method="get" action="register.js" id=regiform>
-        First Name:<input type="text" name="fname" onfocus="showInfo(0)" onblur="hideInfo()"/><br />
-        Last Name:<input type="text" name="lname" onfocus="showInfo(1)" onblur="hideInfo()"/><br />
-        Postal Code:<input type="text" name="postal" onfocus="showInfo(2)" onblur="hideInfo()"/><br />
-        Address:<input type="text" name="address" onfocus="showInfo(3)" onblur="hideInfo()"/><br />
-        City:<input type="text" name="city" onfocus="showInfo(4)" onblur="hideInfo()"/><br />
-        Email:<input type="text" name="email" onfocus="showInfo(5)" onblur="hideInfo()"/><br />
-        <label for="prov">Province: </label>
+        First Name:<input type="text" name="CustFirstName" onfocus="showInfo(0)" onblur="hideInfo()"/><br />
+        Last Name:<input type="text" name="CustLastName" onfocus="showInfo(1)" onblur="hideInfo()"/><br />
+        Postal Code:<input type="text" name="CustPostal" onfocus="showInfo(2)" onblur="hideInfo()"/><br />
+        Address:<input type="text" name="CustAddress" onfocus="showInfo(3)" onblur="hideInfo()"/><br />
+        City:<input type="text" name="CustCity" onfocus="showInfo(4)" onblur="hideInfo()"/><br />
+        <label for="CustProv">Province: </label>
         <select name="province">
             <option value="AB">Alberta</option>
             <option value="BC">British Columbia</option>
@@ -177,12 +203,26 @@
             <option value="QU">Quebec</option>
             <option value="SA">Saskatchewan</option>
             <option value="YU">Yukon</option>
-        </select><br/><br/>
+        </select><br />
+        Country:<input type="text" name="CustCountry" onfocus="showInfo(5)" onblur="hideInfo()"/><br />
+        Home Phone:<input type="text" name="CustHomePhone" onfocus="showInfo(6)" onblur="hideInfo()"/><br />
+        Business Phone:<input type="text" name="CustBusPhone" onfocus="showInfo(7)" onblur="hideInfo()"/><br />
+        Email:<input type="text" name="CustEmail" onfocus="showInfo(8)" onblur="hideInfo()"/><br />
+        <label for="AgentId">Agent Name: </label>
+        <select name="province">
+            <option value="1">J.Delton</option>
+            <option value="2">J.Lisle</option>
+            <option value="3">D.Reynolds</option>
+            <option value="4">J.Coville</option>
+            <option value="5">F.Smith</option>
+            <option value="6">B.Dixon</option>
+            <option value="7">B.Jones</option>
+            <option value="8">J.Merill</option>
+            <option value="9">B.Peterson</option>
 
-        <label for="Ads">Sign up for our newsletter for<br /> exclusive deals and savings!: </label>
-        <input type="checkbox" name="Ads" value="yes" checked="checked"/><br/><br/>
         <button type="button" onclick="validate()">Send</button>
         <button type="reset" onclick="return confirm('Reset form?');">Reset</button>
+        </select>
     </form>
     <aside>
         <img id="sky" src="../media/images/skybackground.jpg">

@@ -24,6 +24,10 @@ function verifyData(customer)
     {
         errorMessage += "CustLastName must have a value<br />";
     }
+    if (customer.CustPostal == "")
+    {
+        errorMessage += "CustPostal must have a value<br />";
+    }
     if (customer.CustAddress == "")
     {
         errorMessage += "CustAddress must have a value<br />";
@@ -35,10 +39,6 @@ function verifyData(customer)
     if (customer.CustProv == "")
     {
         errorMessage += "CustProv must have a value<br />";
-    }
-    if (customer.CustPostal == "")
-    {
-        errorMessage += "CustPostal must have a value<br />";
     }
     if (customer.CustCountry == "")
     {
@@ -75,7 +75,7 @@ function verifyData(customer)
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/register", (req, res)=>{
-    res.sendFile(__dirname + "/register.html", function (err) {
+    res.sendFile(__dirname + "/register.ejs", function (err) {
         if (err) throw err; // Pass errors to Express.
     });
 });
@@ -87,8 +87,8 @@ app.post("/newcustomer", (req, res)=>{
     {
         let conn = mysql.createConnection({
             host: "localhost",
-            user: "root",
-            password: "",
+            user: "travelexperts",
+            password: "12345",
             database: "travelexperts"
         });
         conn.connect((err)=>{
