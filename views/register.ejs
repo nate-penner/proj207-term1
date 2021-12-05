@@ -5,7 +5,7 @@
         <link rel = "icon" href = "../media/icons/TempLogo.jpg"></link>
         <title>Register</title>
         <script>
-            let fieldInfo = ["Enter First Name", "Enter Last Name", "Postal Code format is 'A9A 9A9'", "Enter Address", "Enter City", "Enter Home Phone", "Enter Business Phone", "Enter Email"];
+            let fieldInfo = ["Enter First Name", "Enter Last Name", "Postal Code format is 'A9A 9A9'", "Enter Address", "Enter City", "Enter Country", "Enter Home Phone", "Enter Business Phone", "Enter Email"];
 
             function showInfo(index)
             {
@@ -47,9 +47,9 @@
                 else
                 {
                     let myPostal = form1.CustPostal.value;
-                    form1.postal.value = myPostal.toUpperCase();
+                    form1.CustPostal.value = myPostal.toUpperCase();
                     let regPostal = /^[a-z]\d[a-z][ -]?\d[a-z]\d$/i;
-                    if (!regPostal.test(form1.postal.value))
+                    if (!regPostal.test(form1.CustPostal.value))
                     {
                         message += "Postal code has invalid format;  ";
                         form1.CustPostal.focus();
@@ -99,14 +99,8 @@
                     if (!regEmail.test(form1.CustEmail.value))
                     {
                         message += "Invalid email;  ";
-                        form1.email.focus();
+                        form1.CustEmail.focus();
                     }
-                }
-
-                if (form1.AgentId.value == "")
-                {
-                    message += "Agent ID must have a value;  ";
-                    form1.AgentId.focus();
                 }
 
                 if (message != "")
@@ -209,7 +203,7 @@
         Business Phone:<input type="text" name="CustBusPhone" onfocus="showInfo(7)" onblur="hideInfo()"/><br />
         Email:<input type="text" name="CustEmail" onfocus="showInfo(8)" onblur="hideInfo()"/><br />
         <label for="AgentId">Agent Name: </label>
-        <select name="province">
+        <select name="AgentID">
             <option value="1">J.Delton</option>
             <option value="2">J.Lisle</option>
             <option value="3">D.Reynolds</option>
@@ -219,10 +213,10 @@
             <option value="7">B.Jones</option>
             <option value="8">J.Merill</option>
             <option value="9">B.Peterson</option>
-
+        </select><br /><br />
         <button type="button" onclick="validate()">Send</button>
         <button type="reset" onclick="return confirm('Reset form?');">Reset</button>
-        </select>
+
     </form>
     <aside>
         <img id="sky" src="../media/images/skybackground.jpg">
