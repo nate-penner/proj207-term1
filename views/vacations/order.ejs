@@ -66,39 +66,14 @@
                 }
             }
         </style>
-        <script src="/assets/scripts/vacations.js"></script>
     </head>
     <body>
-        <%- include('../header') %>
+    <%- include('../header') %>
 
-        <section id="main-content">
-            <h1>Vacation Packages</h1>
-            <% vacations.forEach((vacation) => { %>
-                <article id="package-<%= vacation.PackageId %>" class="vacation-package">
-                    <div class="package-container">
-                        <div class="package-info">
-                            <h1><%= vacation.PkgName %></h1>
-                            <p><%= vacation.PkgDesc %></p>
-                            <span>Price: $<%= vacation.PkgBasePrice %></span>
-                        </div>
-                        <div>
-                        </div>
-                        <div class="order-package">
-                            <form method="get" action="/vacations/order">
-                                <input type="hidden" name="packageId" value="<%= vacation.PackageId %>">
-                                <button>Order Now!</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div id="package-images-<%= vacation.PackageId %>" class="package-images">
-                        <% vacation.images.forEach((image) => {%>
-                        <img src="<%= image %>">
-                        <% }); %>
-                    </div>
-                </article>
-            <% }); %>
-        </section>
+    <section id="main-content">
+        <h1><%= params.packageId %></h1>
+    </section>
 
-        <%- include('../footer') %>
+    <%- include('../footer') %>
     </body>
 </html>

@@ -48,5 +48,9 @@ router.get('/', (req, res) => {
         });
     });
 });
+router.get('/order', (req, res) => {
+    console.log(typeof req.query);
+    res.render('vacations/order', {params: req.query, pageTitle: '- Order a Vacation Package'});
+});
 
 module.exports = router;
