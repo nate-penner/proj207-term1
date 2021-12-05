@@ -7,9 +7,21 @@
         -webkit-tap-highlight-color: transparent;
     }
 
-    body {
+    html, body {
+        height: 100%;
         font-family: "Noto Sans", sans-serif;
         background-color: rgb(194, 233, 254);
+    }
+
+    #container {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    #main-content {
+        flex: 1;
+        flex-shrink: 1;
+        flex-basis: 0;
     }
 
     /* header styles */
@@ -94,13 +106,11 @@
         float: left;
     }
 
-    #page-footer {
-        position: absolute;
-        left: 0;
-        bottom: 0;
+    footer {
+        /*position: absolute;*/
+        /*left: 0;*/
+        /*bottom: 0;*/
         width: 100%;
-
-
     }
 
     .foot-grid-container {
