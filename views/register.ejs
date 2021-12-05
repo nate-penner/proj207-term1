@@ -5,7 +5,7 @@
         <link rel = "icon" href = "../media/icons/TempLogo.jpg"></link>
         <title>Register</title>
         <script>
-            var fieldInfo = ["Enter First Name", "Enter Last Name", "Postal Code format is 'A9A 9A9'", "Enter Address", "Enter City", "Enter Email"];
+            let fieldInfo = ["Enter First Name", "Enter Last Name", "Postal Code format is 'A9A 9A9'", "Enter Address", "Enter City", "Enter Email"];
 
             function showInfo(index)
             {
@@ -16,7 +16,7 @@
 
             function hideInfo()
             {
-                var para = document.getElementById("info");
+                let para = document.getElementById("info");
                 para.innerHTML = "";
                 para.style.visibility = "hidden";
             }
@@ -24,8 +24,8 @@
             function validate()
             {
                 document.getElementById("message").innerHTML = "";
-                var form1 = document.forms[0];
-                var message = "";
+                let form1 = document.forms[0];
+                let message = "";
 
                 if (form1.fname.value == "")
                 {
@@ -46,10 +46,10 @@
                 }
                 else
                 {
-                    var myPostal = form1.postal.value;
+                    let myPostal = form1.postal.value;
                     form1.postal.value = myPostal.toUpperCase();
-                    var reg = /^[a-z]\d[a-z][ -]?\d[a-z]\d$/i;
-                    if (!reg.test(form1.postal.value))
+                    let regPostal = /^[a-z]\d[a-z][ -]?\d[a-z]\d$/i;
+                    if (!regPostal.test(form1.postal.value))
                     {
                         message += "Postal code has invalid format;  ";
                         form1.postal.focus();
@@ -75,9 +75,9 @@
                 }
                 else
                 {
-                    var myEmail = form1.email.value;
-                    var reg = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-                    if (!reg.test(form1.email.value))
+                    let myEmail = form1.email.value;
+                    let regEmail = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+                    if (!regEmail.test(form1.email.value))
                     {
                         message += "Invalid email;  ";
                         form1.email.focus();
@@ -155,7 +155,7 @@
     <p id="message"></p>
     <p id="info"></p>
     <br /><br /><br />
-    <form method="get" action="bouncer.php" id=regiform>
+    <form method="get" action="register.js" id=regiform>
         First Name:<input type="text" name="fname" onfocus="showInfo(0)" onblur="hideInfo()"/><br />
         Last Name:<input type="text" name="lname" onfocus="showInfo(1)" onblur="hideInfo()"/><br />
         Postal Code:<input type="text" name="postal" onfocus="showInfo(2)" onblur="hideInfo()"/><br />
