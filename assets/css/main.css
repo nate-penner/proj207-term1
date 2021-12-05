@@ -7,12 +7,23 @@
         -webkit-tap-highlight-color: transparent;
     }
 
-    body {
+    html, body {
+        height: 100%;
         font-family: "Noto Sans", sans-serif;
         background-color: rgb(194, 233, 254);
     }
 
-    /* header styles */
+    #container {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    #main-content {
+        flex: 1;
+        flex-shrink: 1;
+        flex-basis: 0;
+    }
+/* header styles */
     #page-header {
         width: 100%;
         height: 100px;
@@ -38,11 +49,13 @@
     #page-header .banner span {
         display: block;
         font-size: 2em;
-        color: gray;
+        color: #555555;
         justify-self: center;
         align-self: center;
         text-align: center;
         vertical-align: middle;
+        font-style: italic;
+        font-weight: bold;
     }
 
     #page-header > nav {
@@ -94,13 +107,11 @@
         float: left;
     }
 
-    #page-footer {
-        position: absolute;
-        left: 0;
-        bottom: 0;
+    footer {
+        /*position: absolute;*/
+        /*left: 0;*/
+        /*bottom: 0;*/
         width: 100%;
-
-
     }
 
     .foot-grid-container {
@@ -108,13 +119,15 @@
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         grid-gap: 5px;
         grid-auto-rows: 50px;
-        background-color: blue;
+        background-color: deepskyblue;
+        color: #555555;
+        font-weight: bold;
         border-top: 0.15em solid #9b9b9b;
 
     }
 
     .foot-grid-container > div {
-        background-color: white;
+        background-color: deepskyblue;
         text-align: center;
         padding: 20px 0;
         font-size: 15px;
@@ -122,6 +135,7 @@
 
     .footbox2 {
         grid-area: 1 / 2 / span 2 / span 1;
+
     }
 
     .footbox4 {
