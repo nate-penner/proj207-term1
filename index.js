@@ -1,8 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const mysql = require('mysql');
 const argv = require('./argv');
-const vacations = require('./apps/vacations');
 const apps = require('./apps');
 
 let HTTP_PORT;

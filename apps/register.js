@@ -1,17 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require("mysql");
-const app = express();
-app.set("view engine", "ejs");
 
-router.get('/', (req, res) => {
-    res.render('register', {pageTitle: 'Vacation Packages'});
-});
-
-module.exports = router;
-
-//load the body-parser module to convert the data in the request body into an object
-const bodyParser = require("body-parser");
+console.log('This file ran');
 
 let errorMessage;
 function verifyData(customer)
@@ -73,16 +64,18 @@ function verifyData(customer)
 }
 
 // convert form data into JSON object
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.get("/views/register", (req, res)=>{
-    res.sendFile(__dirname + "/views/register.ejs", function (err) {
-        if (err) throw err; // Pass errors to Express.
-    });
+router.get("/", (req, res)=>{
+    console.log('Rendering register');
+    res.render('register', {pageTitle: '- Customer Registration'});
+    // res.sendFile(__dirname + "/views/register.ejs", function (err) {
+    //     if (err) throw err; // Pass errors to Express.
+    // });
 });
 
-app.post("/newcustomer", (req, res)=>{
+router.post("/newcustomer", (req, res)=>{
     //pass the request body to a verification function, and if it is okay, update the database
     console.log("Body: " + req.body);
     if (verifyData(req.body))
@@ -116,3 +109,5 @@ app.post("/newcustomer", (req, res)=>{
     }
 
 });
+
+module.exports = router;
