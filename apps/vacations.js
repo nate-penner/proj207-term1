@@ -113,14 +113,14 @@ router.post('/order', (req, res) => {
                                 } else {
                                     results[0].packageDetails = req.body;
                                     console.log(results);
-                                    res.render('register-copy', {orderDetails: results[0], pageTitle: '- Order processed!'});
+                                    res.render('register', {orderDetails: results[0], pageTitle: '- Order processed!'});
                                 }
                             });
                         } else {
                             // If it's a new customer, then redirect them to the registration page and pass along
                             // the order details
                             console.log(req.body);
-                            res.render('register-copy', {pageTitle: ' - Customer Registration', orderDetails: {packageDetails: req.body}, foo: 'bar'});
+                            res.render('register', {pageTitle: ' - Customer Registration', orderDetails: {packageDetails: req.body}, foo: 'bar'});
                         }
                     } else {
                         res.render('404', {message: 'Something went wrong with your order. Please call (403)-555-5555 for assistance!'});
