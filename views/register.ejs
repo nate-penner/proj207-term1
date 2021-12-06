@@ -176,14 +176,14 @@
     <p id="message"></p>
     <p id="info"></p>
     <br /><br /><br />
-    <form method="get" action="register.js" id=regiform>
-        First Name:<input type="text" name="CustFirstName" onfocus="showInfo(0)" onblur="hideInfo()"/><br />
-        Last Name:<input type="text" name="CustLastName" onfocus="showInfo(1)" onblur="hideInfo()"/><br />
-        Postal Code:<input type="text" name="CustPostal" onfocus="showInfo(2)" onblur="hideInfo()"/><br />
-        Address:<input type="text" name="CustAddress" onfocus="showInfo(3)" onblur="hideInfo()"/><br />
-        City:<input type="text" name="CustCity" onfocus="showInfo(4)" onblur="hideInfo()"/><br />
+    <form method="post" action="/newcustomer" id=regiform>
+        First Name:<input type="text" name="CustFirstName" id="CustFirstName" onfocus="showInfo(0)" onblur="hideInfo()"/><br />
+        Last Name:<input type="text" name="CustLastName" id="CustLastName" onfocus="showInfo(1)" onblur="hideInfo()"/><br />
+        Postal Code:<input type="text" name="CustPostal" id="CustPostal" onfocus="showInfo(2)" onblur="hideInfo()"/><br />
+        Address:<input type="text" name="CustAddress" id="CustAddress" onfocus="showInfo(3)" onblur="hideInfo()"/><br />
+        City:<input type="text" name="CustCity" id="CustCity" onfocus="showInfo(4)" onblur="hideInfo()"/><br />
         <label for="CustProv">Province: </label>
-        <select name="province">
+        <select name="province" name="CustProv" id="CustProv">
             <option value="AB">Alberta</option>
             <option value="BC">British Columbia</option>
             <option value="MA">Manitoba</option>
@@ -198,12 +198,12 @@
             <option value="SA">Saskatchewan</option>
             <option value="YU">Yukon</option>
         </select><br />
-        Country:<input type="text" name="CustCountry" onfocus="showInfo(5)" onblur="hideInfo()"/><br />
-        Home Phone:<input type="text" name="CustHomePhone" onfocus="showInfo(6)" onblur="hideInfo()"/><br />
-        Business Phone:<input type="text" name="CustBusPhone" onfocus="showInfo(7)" onblur="hideInfo()"/><br />
-        Email:<input type="text" name="CustEmail" onfocus="showInfo(8)" onblur="hideInfo()"/><br />
+        Country:<input type="text" name="CustCountry" id="CustCountry" onfocus="showInfo(5)" onblur="hideInfo()"/><br />
+        Home Phone:<input type="text" name="CustHomePhone" id="CustHomePhone" onfocus="showInfo(6)" onblur="hideInfo()"/><br />
+        Business Phone:<input type="text" name="CustBusPhone" id="CustBusPhone" onfocus="showInfo(7)" onblur="hideInfo()"/><br />
+        Email:<input type="text" name="CustEmail" id="CustEmail" onfocus="showInfo(8)" onblur="hideInfo()"/><br />
         <label for="AgentId">Agent Name: </label>
-        <select name="AgentID">
+        <select name="AgentId" id="AgentId">
             <option value="1">J.Delton</option>
             <option value="2">J.Lisle</option>
             <option value="3">D.Reynolds</option>
@@ -214,9 +214,8 @@
             <option value="8">J.Merill</option>
             <option value="9">B.Peterson</option>
         </select><br /><br />
-        <button type="button" onclick="validate()">Send</button>
+        <button type="button" onclick="validate()">Register</button>
         <button type="reset" onclick="return confirm('Reset form?');">Reset</button>
-
     </form>
     <aside>
         <img id="sky" src="../media/images/skybackground.jpg">
