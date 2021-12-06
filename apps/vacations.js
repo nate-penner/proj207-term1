@@ -61,22 +61,35 @@ router.get('/order', (req, res) => {
         res.redirect('/vacations');
     });
 });
+
+// For the prototype, I used a convoluted set of queries to prevent the possibility of SQL injection in the packageID
+// and customerUUID, in the interest of getting the prototype up and running. In production, we will update the security
+// of the site with some middlewares like helmet and sanitizer, and setup HTTPS via letsencrypt
 router.post('/order', (req, res) => {
+    // Get all customer UUID's from the database
     queries.get('SELECT CustomerUUID FROM customers', (err, uuids, fields) => {
         if (err) {
             res.render('404', {message: 'Sorry, we are unable to process your request at this time! Please call (403)-555-5555 for assistance!'});
         } else {
+            // make a list of valid UUID's from the database
             const validUUIDs = [];
-            uuids.forEach((uuid) => validUUIDs.push(uuid.CustomerUUID));
+            uuids.forEach((uuid) => {
+                if (uuid.CustomerUUID !== null)
+                    validUUIDs.push(uuid.CustomerUUID);
+            });
             console.log('Valid uuids:');
             console.log(validUUIDs);
+
+            // Get the packages from the database
             queries.get('SELECT PackageId FROM packages', (err, packageIds, fields) => {
                 if (err) {
                     res.render('404', {message: 'Sorry, we are unable to process your request at this time! Please call (403)-555-5555 for assistance!'});
                 } else {
+                    // make a list of valid package ID's from the database
                     const validPackages = [];
                     packageIds.forEach((packageId) => validPackages.push(packageId.PackageId));
 
+                    // Verify that a number is in a certain range
                     function validRange(num) {
                         try {
                             return parseInt(num) <= 10 && parseInt(num) >= 1;
@@ -85,23 +98,29 @@ router.post('/order', (req, res) => {
                         }
                     }
 
-                    // Validate
+                    // Validate the packageID receive against the valid packageIDs, and check that the number of
+                    // guests is within the accepted range
                     if (req.body.packageId in validPackages && validRange(req.body.guests)) {
                         console.log(`The customer's uuid is ${req.body.customerUUID}`);
                         console.log(validUUIDs.includes(req.body.customerUUID));
+
                         if (validUUIDs.includes(req.body.customerUUID)) {
-                            // Customer is already registered
+                            // If the customer is already registered, then pull their info from the database and process
+                            // the order
                             queries.get(`SELECT * FROM customers WHERE CustomerUUID='${req.body.customerUUID}'`, (err, results, fields) => {
-                                if (err) {
+                                if (err || results.length !== 1) {
                                     res.render('404', {message: 'Something went wrong with your order. Please call (403)-555-5555 for assistance!'})
                                 } else {
+                                    results[0].packageDetails = req.body;
                                     console.log(results);
-                                    res.render('vacations/process', {orderDetails: results[0], pageTitle: '- Order processed!'});
+                                    res.render('register-copy', {orderDetails: results[0], pageTitle: '- Order processed!'});
                                 }
                             });
                         } else {
-                            // New customer
-                            res.render('register-copy', {orderDetails: req.body});
+                            // If it's a new customer, then redirect them to the registration page and pass along
+                            // the order details
+                            console.log(req.body);
+                            res.render('register-copy', {pageTitle: ' - Customer Registration', orderDetails: {packageDetails: req.body}, foo: 'bar'});
                         }
                     } else {
                         res.render('404', {message: 'Something went wrong with your order. Please call (403)-555-5555 for assistance!'});
@@ -110,5 +129,11 @@ router.post('/order', (req, res) => {
             });
         }
     });
+});
+
+// process an order
+router.post('/process', (req, res) => {
+    console.log(req.body);
+    res.render('vacations/process', {pageTitle: ' - Order placed!', orderDetails: req.body});
 });
 module.exports = router;
