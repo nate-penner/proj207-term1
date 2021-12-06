@@ -42,11 +42,40 @@
                 }
 
                 .featured-package {
-                    grid-area: 2 / 2 / span 2 / span 3;
-                    background-color: orange
-                }
-            .package
 
+                }
+
+            .featured-package-container {
+                padding: 5px;
+                grid-area: 2 / 2 / span 2 / span 3;
+                background-color: orange
+            }
+
+        .vacation-package {
+            border: 1px solid black;
+            border-radius: 0.5em;
+            margin-bottom: 1em;
+            padding: 1em;
+            background-color: yellow;
+            width: 70%;
+
+        }
+
+        .vacation-package .package-info h1 {
+            text-align: left;
+            font-size: 1.25em;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+        }
+        .vacation-package .package-info p {
+            font-style: italic;
+            margin-bottom: 0.5em;
+        }
+        .vacation-package .package-info span {}
+        .vacation-package .order-package {
+            justify-self: center;
+            align-self: center;
+        }
 
         </style>
 
@@ -72,11 +101,17 @@
                 </div>
 
                 <div class="slideshow-container" style="text-align:center;">
-                    <img id="slide" width="500" height="400"/>
+                    <img id="slide" width="800" height="500"/>
                 </div>
 
-                <div class="featured-package-container" style="font-size: 2em; font-style: italic; background-color:green;">
-                    <h1>Featured Package</h1> </br>
+                <div class="featured-package-container">
+
+
+                    <p style="font-size: 2em"> <u> Featured Package </u>
+                        <span style="font-size: 60%; float:right; font-style: italic; font-weight: bold; ">Get this package for 30% off at checkout. Offer lasts until December 20th.</span>
+                    </p>
+
+                    </br>
 
                     <div class="package">
 
@@ -85,22 +120,28 @@
                                 <div class="package-info">
                                     <h1><%= featuredPackage.PkgName %></h1>
                                     <p><%= featuredPackage.PkgDesc %></p>
-                                    <span>Price: $<%= featuredPackage.PkgBasePrice %></span>
+                                        <div class="order-package" style="float:right">
+                                            <form method="get" action="/vacations/order">
+                                                <input type="hidden" name="packageId" value="<%= featuredPackage.PackageId %>">
+                                                <button>Order Now!</button>
+                                            </form>
+                                        </div>
+
+                                    <span>Price: <del>$<%= featuredPackage.PkgBasePrice %></del>
+                                        <script>discount</script></span>
+
+
                                 </div>
                                 <div>
                                 </div>
-                                <div class="order-package">
-                                    <form method="get" action="/vacations/order">
-                                        <input type="hidden" name="packageId" value="<%= featuredPackage.PackageId %>">
-                                        <button>Order Now!</button>
-                                    </form>
-                                </div>
+
                             </div>
 
                         </article>
 
 
                     </div>
+                    <img src="media/images/Banff.jpg" style="max-width: 25%; grid-area: ">
 
                 </div>
 
@@ -124,6 +165,12 @@
         </section>
 
         <script>
+
+
+            var discount = (parseInt(<%= featuredPackage.PkgBasePrice %>)*(0.7));
+
+            console.log(discount)
+
             var slideshowImages = ["media/images/Asian/China.jpg",
                 "media/images/Asian/Japan.jpg",
                 "media/images/Asian/Japan2.jpg",
