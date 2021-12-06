@@ -5,22 +5,143 @@
         <title>Travel Experts</title>
         <%- include('stylesheets') %>
         <%- include('scripts') %>
+
+        <style>
+            .main-page-grid {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1.5fr 2fr 1fr 2fr 1.5fr;
+                border-bottom: 0.15em solid #9b9b9b;
+                border-radius: 5px;
+                box-sizing: border-box;
+                /* Background is visual guide only. Delete when finished */
+                background-color: hotpink;
+                position: fixed;
+                left: 0;
+            }
+
+            .left-margin {
+                /* Grid-area: start row/ start column/ row span/ column span */
+                grid-area: 1 / 1 / span 10 / span 1;
+                border-style: dotted;
+                border-width: 5px;
+            }
+
+            .right-margin {
+                grid-area: 1 / 5 / span 10 / span 1;
+                border-style: dotted;
+                border-width: 5px;
+            }
+
+            .slideshow-container {
+                grid-area: 1 / 2 / span 1 / span 3;
+                background-color: #FAF2C3;
+            }
+                #slide {
+                    border: 5px double #555;
+                }
+
+                .featured-package {
+                    grid-area: 2 / 2 / span 2 / span 3;
+                    background-color: orange
+                }
+            .package
+
+
+        </style>
+
+
     </head>
 
     <body>
         <%- include('header') %>
 
         <section id="main-content">
-            Filler Text Top
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            Filler Text
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-            Filler Text Bottom
+
+            <div class="main-page-grid">
+            <!-- Left Page Margin -->
+                <div class="left-margin"> 1
+
+                </div>
+
+                <div class="slideshow-container" style="text-align:center;">
+                    <img id="slide" width="500" height="400"/>
+                </div>
+
+                <div class="featured-package-container" style="font-size: 2em; font-style: italic; background-color:green;">
+                    <h1>Featured Package</h1> </br>
+
+                    <div class="package">
+
+                        <article id="package-<%= featuredPackage.PackageId %>" class="vacation-package">
+                            <div class="package-container">
+                                <div class="package-info">
+                                    <h1><%= featuredPackage.PkgName %></h1>
+                                    <p><%= featuredPackage.PkgDesc %></p>
+                                    <span>Price: $<%= featuredPackage.PkgBasePrice %></span>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="order-package">
+                                    <form method="get" action="/vacations/order">
+                                        <input type="hidden" name="packageId" value="<%= featuredPackage.PackageId %>">
+                                        <button>Order Now!</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </article>
+
+
+                    </div>
+
+                </div>
+
+            <!-- Right Page Margin -->
+                <div class="right-margin"> 4
+
+                </div>
+
+                <div> 5
+
+                </div>
+
+
+                <div>6</div>
+                <div>7</div>
+                <div>8</div>
+                <div>9</div>
+            </div>
+
+
         </section>
+
+        <script>
+            var slideshowImages = ["media/images/Asian/China.jpg",
+                "media/images/Asian/Japan.jpg",
+                "media/images/Asian/Japan2.jpg",
+                "media/images/Asian/Korea.jpg",
+                "media/images/Asian/Philippines.jpg",
+
+                "media/images/Carribean/Beach.jpg",
+                "media/images/Carribean/DominicanRepublic.jpg",
+                "media/images/Carribean/Pier.jpg",
+                "media/images/Carribean/Pig.jpg",
+                "media/images/Carribean/Turtle.jpg" ];
+            var slideIndex = 0;
+
+            slideShow();
+
+            function slideShow() {
+                document.getElementById("slide").src = slideshowImages[slideIndex];
+                slideIndex++;
+                if (slideIndex == slideshowImages.length) { slideIndex = 0; }
+                setTimeout("slideShow()", 5000);
+            }
+
+
+
+        </script>
 
 
         <%- include('footer') %>

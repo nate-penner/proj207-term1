@@ -13,6 +13,7 @@
         background-color: rgb(194, 233, 254);
     }
 
+
     #container {
         min-height: 100%;
         display: flex;
@@ -30,7 +31,6 @@
         display: grid;
         grid-template-columns: 3fr 3fr 1fr;
         border-bottom: 0.15em solid #9b9b9b;
-        margin-bottom: 1.5em;
         border-radius: 5px;
         box-sizing: border-box;
         background-color: deepskyblue;
@@ -89,7 +89,6 @@
         text-align: right;
         margin-right: 7em;
         /*margin-right: 1em;*/
-        /*margin-top: 1em;*/
     }
 
     #page-header .login img {
