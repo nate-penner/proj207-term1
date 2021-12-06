@@ -128,10 +128,6 @@
                 z-index: 1;
             }
 
-            body {
-                background-image: url("../media/images/background.png");
-            }
-
             #message {
                 color:white;
                 background-color: crimson;
@@ -144,13 +140,19 @@
                 position: absolute;
                 left: 40%;
             }
+
+            #regititle {
+                position: absolute;
+                left: 40%;
+                font-size: xx-large;
+            }
         </style>
     </head>
     <body>
     <%- include('header') %>
     <section id="main-content">
 
-    <h1 style="text-decoration:underline; text-decoration-color:orange; color:rgb(59, 15, 59)">Registration</h1>
+    <h1 id= "regititle" style="text-decoration:underline; text-decoration-color:orange; color:rgb(59, 15, 59);">Registration</h1>
     <p id="message"></p>
     <p id="info"></p>
     <br /><br /><br />
