@@ -67,6 +67,18 @@
             }
         </style>
         <script src="/assets/scripts/vacations.js"></script>
+        <script>
+            window.addEventListener('load', main);
+
+            function main() {
+                document.querySelectorAll('#page-header nav .links').forEach((link) => {
+                    if (link.innerHTML === 'Packages') {
+                        link.style.backgroundColor = '#00aae6';
+                        link.style.borderBottom = '0.15em solid white';
+                    }
+                });
+            }
+        </script>
     </head>
 
     <body>
