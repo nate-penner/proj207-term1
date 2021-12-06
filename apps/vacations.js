@@ -5,6 +5,7 @@ const fm = require('../utilities/fm');
 const path = require('path');
 const queries = require('./queries');
 
+// I got angry with WebStorm
 router.get('/', (req, res) => {
     queries.get('SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages', (err, results, fields) => {
         if (err) {
@@ -37,75 +38,72 @@ router.get('/', (req, res) => {
         }
     });
 
-   /* const conn = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_NAME
-    });
-    conn.connect((err) => {
-        if (err) {
-            res.render('404', {message: 'Failed to load vacation packages!'});
-        } else {
-            conn.query('SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages', (err, results, fields) => {
-                console.log(results);
-                results.forEach((result) => {
-                    console.log(result);
-                });
-                if (err || results.length < 1)
-                    res.render('404', {message: 'Failed to load vacation packages!'});
-                else {
-                    // get image paths;
-                    results.forEach((result) => {
-                        result.images = [];
-                        const fileNames = fm.getFileNamesSync(path.join(__dirname, `../media/images/vacations/${result.PackageId}`));
+    /* const conn = mysql.createConnection({
+         host: process.env.DB_HOST,
+         user: process.env.DB_USER,
+         password: process.env.DB_PASS,
+         database: process.env.DB_NAME
+     });
+     conn.connect((err) => {
+         if (err) {
+             res.render('404', {message: 'Failed to load vacation packages!'});
+         } else {
+             conn.query('SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages', (err, results, fields) => {
+                 console.log(results);
+                 results.forEach((result) => {
+                     console.log(result);
+                 });
+                 if (err || results.length < 1)
+                     res.render('404', {message: 'Failed to load vacation packages!'});
+                 else {
+                     // get image paths;
+                     results.forEach((result) => {
+                         result.images = [];
+                         const fileNames = fm.getFileNamesSync(path.join(__dirname, `../media/images/vacations/${result.PackageId}`));
 
-                        if (!(fileNames instanceof Error)) {
-                            fileNames.forEach((fileName) => {
-                                result.images.push(`/media/images/vacations/${result.PackageId}/${fileName}`);
-                            });
-                        } else {
-                            console.log('There was an error retrieving the image file names!');
-                            console.error(fileNames.message);
-                        }
-                        console.log(result);
-                    });
-                    res.render('vacations/home', {pageTitle: 'Vacation Packages', vacations: results});
-                }
-            });
-        }
-        conn.end((err) => {
-            if (err)
-                console.log(`Problem ending the connection: ${err}`);
-        });
-    });*/
+                         if (!(fileNames instanceof Error)) {
+                             fileNames.forEach((fileName) => {
+                                 result.images.push(`/media/images/vacations/${result.PackageId}/${fileName}`);
+                             });
+                         } else {
+                             console.log('There was an error retrieving the image file names!');
+                             console.error(fileNames.message);
+                         }
+                         console.log(result);
+                     });
+                     res.render('vacations/home', {pageTitle: 'Vacation Packages', vacations: results});
+                 }
+             });
+         }
+         conn.end((err) => {
+             if (err)
+                 console.log(`Problem ending the connection: ${err}`);
+         });
+     });*/
 });
-// router.get('/order', (req, res) => {
-//     console.log(`Query: ${req.query}`);
-//     console.log('fuck fucking fuck');
-//     res.send('Go fucking fuck yourself');
-//     //
-//     // queries.get(`SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages`, (err, results, fields) => {
-//     //     if (!err) {
-//     //         if ('packageId' in req.query) {
-//     //             const validPackages = [];
-//     //             results.forEach((pkg) => validPackages.push(pkg.PackageId));
-//     //             console.log(`Valid packages: ${validPackages}`);
-//     //             console.log(`Selected package: ${req.query.packageId}`);
-//     //             console.log(results[req.query.packageId - 1]);
-//     //             if (validPackages.includes(req.query.packageId)) {
-//     //                 console.log('Yes, it is valid');
-//     //                 res.render('vacations/order', {params: results[req.query.packageId - 1], pageTitle: '- Order a Vacation Package'});
-//     //                 return;
-//     //             } else {
-//     //                 console.log('No, it is invalid');
-//     //             }
-//     //         }
-//     //     }
-//     //
-//     //     // res.redirect('/vacations');
-//     // });
-// });
+router.get('/order', (req, res) => {
+    queries.get(`SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages`, (err, results, fields) => {
+        if (!err) {
+            if ('packageId' in req.query) {
+                const validPackages = [];
+                results.forEach((pkg) => validPackages.push(pkg.PackageId));
+                console.log(`Valid packages: ${validPackages}`);
+                console.log(`Selected package: ${req.query.packageId}`);
+                console.log('hi');
+                console.log(typeof req.query.packageId);
+                if (validPackages.includes(parseInt(req.query.packageId))) {
+                    console.log('Yes, it is valid');
+                    res.render('vacations/order', {params: results[req.query.packageId - 1], pageTitle: '- Order a Vacation Package'});
+                    return;
+                } else {
+                    console.log('No, it is invalid');
+                }
+            }
+        }
+
+        res.redirect('/vacations');
+    });
+});
 router.post('/order', (req, res) => {
     queries.get('SELECT CustomerUUID FROM customers', (err, uuids, fields) => {
         if (err) {
