@@ -101,7 +101,7 @@ router.post('/order', (req, res) => {
                             });
                         } else {
                             // New customer
-                            res.render('register', {orderDetails: req.body});
+                            res.render('register-copy', {orderDetails: req.body});
                         }
                     } else {
                         res.render('404', {message: 'Something went wrong with your order. Please call (403)-555-5555 for assistance!'});
