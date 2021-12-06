@@ -30,19 +30,19 @@
 
                 if (form1.CustFirstName.value == "")
                 {
-                    message += "First name must have a value;  ";
+                    message += "First name must have a value,<br />   ";
                     form1.CustFirstName.focus();
                 }
 
                 if (form1.CustLastName.value == "")
                 {
-                    message += "Last name must have a value;  ";
+                    message += "Last name must have a value,<br />   ";
                     form1.CustLastName.focus();
                 }
 
                 if (form1.CustPostal.value == "")
                 {
-                    message += "Postal Code must have a value;  ";
+                    message += "Postal Code must have a value,<br />   ";
                     form1.CustPostal.focus();
                 }
                 else
@@ -52,44 +52,44 @@
                     let regPostal = /^[a-z]\d[a-z][ -]?\d[a-z]\d$/i;
                     if (!regPostal.test(form1.CustPostal.value))
                     {
-                        message += "Postal code has invalid format;  ";
+                        message += "Postal code has invalid format,<br />   ";
                         form1.CustPostal.focus();
                     }
                 }
 
                 if (form1.CustAddress.value == "")
                 {
-                    message += "Address must have a value;  ";
+                    message += "Address must have a value,<br />   ";
                     form1.CustAddress.focus();
                 }
 
                 if (form1.CustCity.value == "")
                 {
-                    message += "City must have a value;  ";
+                    message += "City must have a value,<br />   ";
                     form1.CustCity.focus();
                 }
 
                 if (form1.CustCountry.value == "")
                 {
-                    message += "Country must have a value;  ";
+                    message += "Country must have a value,<br />   ";
                     form1.CustCountry.focus();
                 }
 
                 if (form1.CustHomePhone.value == "")
                 {
-                    message += "Home Phone must have a value;  ";
+                    message += "Home Phone must have a value,<br />   ";
                     form1.CustHomePhone.focus();
                 }
 
                 if (form1.CustBusPhone.value == "")
                 {
-                    message += "Business Phone must have a value;  ";
+                    message += "Business Phone must have a value,<br />   ";
                     form1.CustBusPhone.focus();
                 }
 
                 if (form1.CustEmail.value == "")
                 {
-                    message += "Email must have a value;  ";
+                    message += "Email must have a value,<br />   ";
                     form1.CustEmail.focus();
                 }
 
@@ -99,7 +99,7 @@
                     let regEmail = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
                     if (!regEmail.test(form1.CustEmail.value))
                     {
-                        message += "Invalid email;  ";
+                        message += "Invalid email,<br />   ";
                         form1.CustEmail.focus();
                     }
                 }
@@ -122,7 +122,7 @@
             #info {
                 position: absolute;
                 top: 350px;
-                left: 400px;
+                right: 500px;
                 background-color: violet;
                 font-size: larger;
                 z-index: 1;
@@ -136,17 +136,8 @@
                 color:white;
                 background-color: crimson;
                 position: absolute;
-                top: 200px;
+                left: 400px;
                 z-index: 1;
-            }
-
-            #sky {
-                position: absolute;
-                right: 10px;
-                top: 100px;
-                max-width: 60%;
-                height: auto;
-                z-index: 0;
             }
 
             #regiform {
