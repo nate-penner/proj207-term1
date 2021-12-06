@@ -5,7 +5,7 @@ const fm = require('../utilities/fm');
 const path = require('path');
 const queries = require('./queries');
 
-console.log('THIS MOTHERFUCKING FILE FUCKING RAN FUCK');
+// I got angry with WebStorm
 router.get('/', (req, res) => {
     queries.get('SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages', (err, results, fields) => {
         if (err) {
