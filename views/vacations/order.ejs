@@ -7,7 +7,6 @@
         <%- include('../scripts') %>
         <style>
             #main-content {
-                display: grid;
                 width: 75%;
                 margin: 0 auto;
             }
@@ -17,53 +16,38 @@
                 font-weight: bold;
                 margin-bottom: 1em;
             }
-            .vacation-package {
-                border: 1px solid black;
-                border-radius: 0.5em;
-                margin-bottom: 1em;
-                padding: 1em;
+            .package > h1 {
+                font-size: 2em;
+                text-align: center;
             }
-            .vacation-package:hover {
-                cursor: pointer;
-                background-color: #86b7fe;
+            .package > p {
+                margin-top: 1em;
+                text-align: center;
             }
-            .vacation-package .package-container {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-            .vacation-package .package-info h1 {
-                text-align: left;
+            .package > h3 {
+                text-align: center;
                 font-size: 1.25em;
-                font-weight: bold;
-                margin-bottom: 0.5em;
+                margin-top: 1.5em;
             }
-            .vacation-package .package-info p {
-                font-style: italic;
-                margin-bottom: 0.5em;
+            .package form {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: min-content min-content;
+                grid-row-gap: 1em;
+                grid-column-gap: 1em;
+                width: 35%;
+                margin: 1em auto 0 auto;
             }
-            .vacation-package .package-info span {}
-            .vacation-package .order-package {
-                justify-self: center;
+            .package form label {
+                text-align: right;
                 align-self: center;
             }
-            .vacation-package .order-package button {
-
+            .package form select, .package form input[type="text"] {
+                padding: 0.75em;
+                font-weight: bold;
             }
-            .vacation-package .package-images {
-                display: none;
-                margin-top: 1em;
-            }
-            .vacation-package .package-images img {
-                display: block;
-                max-width: 75%;
-                margin: 0.5em auto 0 auto;
-            }
-            @media only screen and (min-width: 1000px) {
-                .vacation-package .package-images img {
-                    max-width: 25%;
-                    margin: 0;
-                    float: left;
-                }
+            .package form button {
+                padding: 1em;
             }
         </style>
     </head>
@@ -71,7 +55,32 @@
     <%- include('../header') %>
 
     <section id="main-content">
-        <h1><%= params.packageId %></h1>
+        <div class="package">
+            <h1><%= params.PkgName %></h1>
+            <p style="font-style: italic">Price: $<%= params.PkgBasePrice %></p>
+            <p><em>An excellent choice!</em></p>
+            <h3>How many people will be traveling? (You may book up to 10 people)</h3>
+            <form method="post" action="/vacations/order">
+                <label for="guests">Number of guests:</label>
+                <select name="guests">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <label for="customerUUID">Customer ID (if known):</label>
+                <input type="text" name="customerUUID" maxlength="36">
+                <input type="hidden" name="packageId" value="<%= params.PackageId %>">
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+            </form>
+        </div>
     </section>
 
     <%- include('../footer') %>

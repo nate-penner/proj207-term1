@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../meta') %>
+    <title>Travel Experts<%= pageTitle %></title>
+    <%- include('../stylesheets') %>
+    <%- include('../scripts') %>
+    <style>
+        #main-content {
+            width: 75%;
+            margin: 0 auto;
+        }
+        #main-content > h1 {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 1em;
+        }
+        .package > h1 {
+            font-size: 2em;
+            text-align: center;
+        }
+        .package > p {
+            margin-top: 1em;
+            text-align: center;
+        }
+        .package > h3 {
+            text-align: center;
+            font-size: 1.25em;
+            margin-top: 1.5em;
+        }
+        .package form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: min-content min-content;
+            grid-row-gap: 1em;
+            grid-column-gap: 1em;
+            width: 35%;
+            margin: 1em auto 0 auto;
+        }
+        .package form label {
+            text-align: right;
+            align-self: center;
+        }
+        .package form select, .package form input[type="text"] {
+            padding: 0.75em;
+            font-weight: bold;
+        }
+        .package form button {
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+<%- include('../header') %>
+
+<section id="main-content">
+Thanks, <%= orderDetails.CustFirstName %>
+</section>
+
+<%- include('../footer') %>
+</body>
+</html>
