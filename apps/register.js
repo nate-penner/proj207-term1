@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mysql = require("mysql");
 const app = express();
+app.set("view engine", "ejs");
 
 router.get('/', (req, res) => {
     res.render('register', {pageTitle: 'Vacation Packages'});
@@ -73,6 +74,13 @@ function verifyData(customer)
 
 // convert form data into JSON object
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.get("/views/register", (req, res)=>{
+    res.sendFile(__dirname + "/views/register.ejs", function (err) {
+        if (err) throw err; // Pass errors to Express.
+    });
+});
 
 app.post("/newcustomer", (req, res)=>{
     //pass the request body to a verification function, and if it is okay, update the database
