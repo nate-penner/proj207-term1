@@ -15,10 +15,11 @@ router.get('/', (req, res) => {
             res.render('main', {pageTitle: ''});
         else {
             conn.query('SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages', (err, results, fields) => {
+                console.log(results);
                 if (err || results.length < 1)
                     res.render('main', {pageTitle: ''});
                 else
-                    res.render('main', {pageTitle: '', featuredPackage: results[randRange(0, results.length - 1)]});
+                    res.render('main', {pageTitle: '', featuredPackage: results[0]});
             });
         }
         conn.end((err) => {
