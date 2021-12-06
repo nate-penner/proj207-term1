@@ -80,25 +80,32 @@ router.get('/', (req, res) => {
         });
     });*/
 });
-router.get('/order', (req, res) => {
-    queries.get(`SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages`, (err, results, fields) => {
-        if (!err) {
-            if ('packageId' in req.query) {
-                const validPackages = [];
-                results.forEach((pkg) => validPackages.push(pkg.PackageId));
-                console.log(`Valid packages: ${validPackages}`);
-                console.log(`Selected package: ${req.query.packageId}`);
-                console.log(results[req.query.packageId - 1]);
-                if (req.query.packageId in validPackages) {
-                    res.render('vacations/order', {params: results[req.query.packageId - 1], pageTitle: '- Order a Vacation Package'});
-                    return;
-                }
-            }
-        }
-
-        res.redirect('/vacations');
-    });
-});
+// router.get('/order', (req, res) => {
+//     console.log(`Query: ${req.query}`);
+//     console.log('fuck fucking fuck');
+//     res.send('Go fucking fuck yourself');
+//     //
+//     // queries.get(`SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages`, (err, results, fields) => {
+//     //     if (!err) {
+//     //         if ('packageId' in req.query) {
+//     //             const validPackages = [];
+//     //             results.forEach((pkg) => validPackages.push(pkg.PackageId));
+//     //             console.log(`Valid packages: ${validPackages}`);
+//     //             console.log(`Selected package: ${req.query.packageId}`);
+//     //             console.log(results[req.query.packageId - 1]);
+//     //             if (validPackages.includes(req.query.packageId)) {
+//     //                 console.log('Yes, it is valid');
+//     //                 res.render('vacations/order', {params: results[req.query.packageId - 1], pageTitle: '- Order a Vacation Package'});
+//     //                 return;
+//     //             } else {
+//     //                 console.log('No, it is invalid');
+//     //             }
+//     //         }
+//     //     }
+//     //
+//     //     // res.redirect('/vacations');
+//     // });
+// });
 router.post('/order', (req, res) => {
     queries.get('SELECT CustomerUUID FROM customers', (err, uuids, fields) => {
         if (err) {
