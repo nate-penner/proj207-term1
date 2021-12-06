@@ -16,8 +16,11 @@ router.get('/', (req, res) => {
         else {
             conn.query('SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages', (err, results, fields) => {
                 console.log(results);
-                if (err || results.length < 1)
+                if (err || results.length < 1) {
+                    console.log(err);
+                    console.log(results.length);
                     res.render('main', {pageTitle: ''});
+                }
                 else {
                     res.render('main', {pageTitle: '', featuredPackage: results[0]});
                     conn.end((err) => {
@@ -25,7 +28,6 @@ router.get('/', (req, res) => {
                             console.log(`Problem ending the connection: ${err}`);
                     });
                 }
-
             });
         }
     });
