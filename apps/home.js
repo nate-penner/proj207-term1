@@ -20,12 +20,13 @@ router.get('/', (req, res) => {
                     res.render('main', {pageTitle: ''});
                 else
                     res.render('main', {pageTitle: '', featuredPackage: results[0]});
+
+                conn.end((err) => {
+                    if (err)
+                        console.log(`Problem ending the connection: ${err}`);
+                });
             });
         }
-        conn.end((err) => {
-            if (err)
-                console.log(`Problem ending the connection: ${err}`);
-        });
     });
 });
 
