@@ -130,10 +130,13 @@
         padding: 20px 0;
         font-size: 15px;
     }
+    .footbox1 {
+        line-height: 1.2;
+    }
 
     .footbox2 {
         grid-area: 1 / 2 / span 2 / span 1;
-
+        line-height: 1.2;
     }
 
     .footbox4 {
