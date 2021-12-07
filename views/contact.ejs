@@ -18,12 +18,76 @@
                 });
             }
         </script>
+        <style>
+            #main-content h1 {
+                text-align: center;
+                font-size: 2em;
+                font-weight: bold;
+            }
+            #main-content article {
+                width: 15%;
+                text-align: center;
+                margin: 1em auto 0 auto;
+                padding:5px;
+            }
+            strong {
+                font-weight: bold;
+            }
+            li {
+                line-height: 1.5;
+            }
+            article h2 {
+                text-decoration: underline;
+                font-weight: bold;
+                font-size: 1.25em;
+                margin-top: 1em;
+            }
+        </style>
     </head>
     <body>
         <%- include('header') %>
 
         <section id="main-content">
-            <h1>Contact Us!</h1>
+            <h1>Contact Us</h1>
+
+            <article>
+                <p>
+                    <a href="">Calgary</a>|<a href="">Okotoks</a>
+                    <ul>
+                        <% agencies.forEach((agency) => { %>
+                            <strong>
+                                <h2><%= agency.AgencyCity %> Branch</h2>
+                                <li>
+                                    <%= agency.AgencyAdd %><br>
+                                    <%= agency.AgencyCity %>
+                                    <%= agency.AgencyProv %>
+                                    <%= agency.AgencyPostal %><br>
+                                    <%= agency.AgencyCountry %><br>
+                                    <span style="color: #1a1e21">
+                                       Phone: <%= agency.AgencyPhoneNo %><br>
+                                       Fax: <%= agency.AgencyFax %>
+                                    </span><br><br>
+                                </li>
+                                <li>
+                                    <strong>
+                                        <% agents.forEach((agent) => {
+                                            if (agent.AgencyId === agency.AgencyId) { %>
+                                            <span style="text-decoration: underline">
+                                            <%= agent.FirstName %>
+                                            <%= agent.LastName %></span><br>
+                                            <span style="color: #1a1e21">
+                                                Phone: <%= agent.PhoneNo %><br>
+                                                Email: <%= agent.Email %>
+                                            </span><br><br>
+                                            <% } %>
+                                        <% }) %>
+                                    </strong>
+                                </li>
+                            </strong>
+                        <% }) %>
+                    </ul>
+                </p>
+            </article>
         </section>
 
         <%- include('footer') %>

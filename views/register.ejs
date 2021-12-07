@@ -1,221 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <%- include('meta') %>
-        <link rel = "icon" href = "../media/icons/TempLogo.jpg">
-        <title>Register</title>
-        <%- include('stylesheets') %>
-        <script>
-            let fieldInfo = ["Enter First Name", "Enter Last Name", "Postal Code format is 'A9A 9A9'", "Enter Address", "Enter City", "Enter Country", "Enter Home Phone", "Enter Business Phone", "Enter Email"];
+<head>
+    <%- include('meta') %>
+    <link rel = "icon" href = "../media/icons/TempLogo.jpg">
+    <title>Register</title>
+    <%- include('stylesheets') %>
+    <script>
+        let fieldInfo = ["Enter First Name", "Enter Last Name", "Postal Code format is 'A9A 9A9'", "Enter Address", "Enter City", "Enter Country", "Enter Home Phone", "Enter Business Phone", "Enter Email"];
 
-            function showInfo(index)
+        function showInfo(elem, index)
+        {
+            let para = document.getElementById("info");
+            para.innerHTML = fieldInfo[index];
+            para.style.visibility = "visible";
+            console.log(elem.getBoundingClientRect());
+            para.style.left = `calc(${elem.getBoundingClientRect().right}px + 1em)`;
+            console.log(para.style.left);
+            para.style.top = `${elem.getBoundingClientRect().top}px`;
+        }
+
+        function hideInfo()
+        {
+            let para = document.getElementById("info");
+            para.innerHTML = "";
+            para.style.visibility = "hidden";
+        }
+
+        function validate()
+        {
+            document.getElementById("message").innerHTML = "";
+            let form1 = document.forms[0];
+            let message = "";
+
+            if (form1.CustFirstName.value == "")
             {
-                let para = document.getElementById("info");
-                para.innerHTML = fieldInfo[index];
-                para.style.visibility = "visible";
+                message += "First name must have a value,<br />   ";
+                form1.CustFirstName.focus();
             }
 
-            function hideInfo()
+            if (form1.CustLastName.value == "")
             {
-                let para = document.getElementById("info");
-                para.innerHTML = "";
-                para.style.visibility = "hidden";
+                message += "Last name must have a value,<br />   ";
+                form1.CustLastName.focus();
             }
 
-            function validate()
+            if (form1.CustPostal.value == "")
             {
-                document.getElementById("message").innerHTML = "";
-                let form1 = document.forms[0];
-                let message = "";
-
-                if (form1.CustFirstName.value == "")
+                message += "Postal Code must have a value,<br />   ";
+                form1.CustPostal.focus();
+            }
+            else
+            {
+                let myPostal = form1.CustPostal.value;
+                form1.CustPostal.value = myPostal.toUpperCase();
+                let regPostal = /^[a-z]\d[a-z][ -]?\d[a-z]\d$/i;
+                if (!regPostal.test(form1.CustPostal.value))
                 {
-                    message += "First name must have a value,<br />   ";
-                    form1.CustFirstName.focus();
-                }
-
-                if (form1.CustLastName.value == "")
-                {
-                    message += "Last name must have a value,<br />   ";
-                    form1.CustLastName.focus();
-                }
-
-                if (form1.CustPostal.value == "")
-                {
-                    message += "Postal Code must have a value,<br />   ";
+                    message += "Postal code has invalid format,<br />   ";
                     form1.CustPostal.focus();
                 }
-                else
-                {
-                    let myPostal = form1.CustPostal.value;
-                    form1.CustPostal.value = myPostal.toUpperCase();
-                    let regPostal = /^[a-z]\d[a-z][ -]?\d[a-z]\d$/i;
-                    if (!regPostal.test(form1.CustPostal.value))
-                    {
-                        message += "Postal code has invalid format,<br />   ";
-                        form1.CustPostal.focus();
-                    }
-                }
+            }
 
-                if (form1.CustAddress.value == "")
-                {
-                    message += "Address must have a value,<br />   ";
-                    form1.CustAddress.focus();
-                }
+            if (form1.CustAddress.value == "")
+            {
+                message += "Address must have a value,<br />   ";
+                form1.CustAddress.focus();
+            }
 
-                if (form1.CustCity.value == "")
-                {
-                    message += "City must have a value,<br />   ";
-                    form1.CustCity.focus();
-                }
+            if (form1.CustCity.value == "")
+            {
+                message += "City must have a value,<br />   ";
+                form1.CustCity.focus();
+            }
 
-                if (form1.CustCountry.value == "")
-                {
-                    message += "Country must have a value,<br />   ";
-                    form1.CustCountry.focus();
-                }
+            if (form1.CustCountry.value == "")
+            {
+                message += "Country must have a value,<br />   ";
+                form1.CustCountry.focus();
+            }
 
-                if (form1.CustHomePhone.value == "")
-                {
-                    message += "Home Phone must have a value,<br />   ";
-                    form1.CustHomePhone.focus();
-                }
+            if (form1.CustHomePhone.value == "")
+            {
+                message += "Home Phone must have a value,<br />   ";
+                form1.CustHomePhone.focus();
+            }
 
-                if (form1.CustBusPhone.value == "")
-                {
-                    message += "Business Phone must have a value,<br />   ";
-                    form1.CustBusPhone.focus();
-                }
+            if (form1.CustBusPhone.value == "")
+            {
+                message += "Business Phone must have a value,<br />   ";
+                form1.CustBusPhone.focus();
+            }
 
-                if (form1.CustEmail.value == "")
+            if (form1.CustEmail.value == "")
+            {
+                message += "Email must have a value,<br />   ";
+                form1.CustEmail.focus();
+            }
+
+            else
+            {
+                let myEmail = form1.CustEmail.value;
+                let regEmail = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+                if (!regEmail.test(form1.CustEmail.value))
                 {
-                    message += "Email must have a value,<br />   ";
+                    message += "Invalid email,<br />   ";
                     form1.CustEmail.focus();
                 }
+            }
 
-                else
-                {
-                    let myEmail = form1.CustEmail.value;
-                    let regEmail = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-                    if (!regEmail.test(form1.CustEmail.value))
-                    {
-                        message += "Invalid email,<br />   ";
-                        form1.CustEmail.focus();
-                    }
-                }
+            if (message != "")
+            {
+                document.getElementById("message").innerHTML = message;
+            }
 
-                if (message != "")
+            else
+            {
+                if (confirm("Form values are okay. Continue Submitting?"))
                 {
-                    document.getElementById("message").innerHTML = message;
-                }
-
-                else
-                {
-                    if (confirm("Form values are okay. Continue Submitting?"))
-                    {
-                        form1.submit();
-                    }
+                    form1.submit();
                 }
             }
-        </script>
-        <style>
-            #info {
-                position: absolute;
-                top: 350px;
-                right: 500px;
-                background-color: violet;
-                font-size: larger;
-                z-index: 1;
-            }
+        }
+    </script>
+    <style>
+        #main-content {
+            width: 75%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-auto-rows: min-content;
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-column-gap: 1em;
+            grid-row-gap: 0.5em;
+            grid-auto-rows: 1fr;
+            width: 40%;
+            margin: 0 auto;
+        }
+        form * {
+            padding: 0.5em;
+        }
+        form input, form select, form button {
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            border: 1px solid black;
+            box-shadow: inset 0 0 2px 1px #88abc4;
+        }
+        form label {
+            text-align: right;
+        }
+        form button {
+            grid-column-start: 2;
+            grid-column-end: 3;
+            cursor: pointer;
+        }
+        #info {
+            width: 20vw;
+            position: absolute;
+            top: 350px;
+            right: 500px;
+            /*background-color: violet;*/
+            font-size: larger;
+            z-index: 1;
+        }
 
-            #message {
-                color:white;
-                background-color: crimson;
-                position: absolute;
-                left: 400px;
-                z-index: 1;
-            }
+        #message {
+            color:white;
+            background-color: crimson;
+            position: absolute;
+            left: 400px;
+            z-index: 1;
+        }
 
-            #regiform {
-                position: absolute;
-                left: 40%;
-            }
+        /*#regiform {*/
+        /*    position: absolute;*/
+        /*    left: 40%;*/
+        /*}*/
 
-            #regititle {
-                position: absolute;
-                left: 40%;
-                font-size: xx-large;
-            }
-        </style>
-    </head>
-    <body>
-    <%- include('header') %>
-    <section id="main-content">
-
+        #regititle {
+            width: 40%;
+            margin: 0 auto 0.5em auto;
+            text-align: right;
+            transform: translateX(-9%);
+            /*position: absolute;*/
+            /*left: 40%;*/
+            font-size: xx-large;
+        }
+    </style>
+</head>
+<body>
+<%- include('header') %>
+<p id="info"></p>
+<p id="message"></p>
+<section id="main-content">
     <h1 id= "regititle" style="text-decoration:underline; text-decoration-color:orange; color:rgb(59, 15, 59);">Registration</h1>
-    <p id="message"></p>
-    <p id="info"></p>
-    <br /><br /><br />
-        <form method="post" action="<% if (typeof orderDetails !== 'undefined') { %>/vacations/process<% } else { %>/register/newcustomer<% } %>" id="regiform">
-            First Name:<input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustFirstName %><% } %>" type="text" name="CustFirstName" id="CustFirstName" onfocus="showInfo(0)" onblur="hideInfo()"/><br />
-            Last Name:<input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustLastName %><% } %>" type="text" name="CustLastName" id="CustLastName" onfocus="showInfo(1)" onblur="hideInfo()"/><br />
-            Postal Code:<input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustPostal %><% } %>" type="text" name="CustPostal" id="CustPostal" onfocus="showInfo(2)" onblur="hideInfo()"/><br />
-            Address:<input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustAddress %><% } %>" type="text" name="CustAddress" id="CustAddress" onfocus="showInfo(3)" onblur="hideInfo()"/><br />
-            City:<input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustCity %><% } %>" type="text" name="CustCity" id="CustCity" onfocus="showInfo(4)" onblur="hideInfo()"/><br />
-            <label for="CustProv">Province: </label>
-            <% if (typeof orderDetails !== 'undefined') { %>
-                <script>
-                    window.addEventListener('load', () => {
-                        const provOption = document.querySelector('select[name="CustProv"] > option[value="<%= orderDetails.CustProv %>"]');
-                        if (provOption)
-                            provOption.setAttribute('selected', 'true');
+    <form method="post" action="<% if (typeof orderDetails !== 'undefined') { %>/vacations/process<% } else { %>/register/newcustomer<% } %>" id="regiform">
+        <label for="CustFirstName">First Name:</label>
+        <input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustFirstName %><% } %>" type="text" name="CustFirstName" id="CustFirstName" onfocus="showInfo(this, 0)" onblur="hideInfo()"/>
+        <label for="CustLastName">Last Name:</label>
+        <input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustLastName %><% } %>" type="text" name="CustLastName" id="CustLastName" onfocus="showInfo(this, 1)" onblur="hideInfo()"/>
+        <label for="CustPostal">Postal Code:</label>
+        <input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustPostal %><% } %>" type="text" name="CustPostal" id="CustPostal" onfocus="showInfo(this, 2)" onblur="hideInfo()"/>
+        <label for="CustAddress">Address:</label>
+        <input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustAddress %><% } %>" type="text" name="CustAddress" id="CustAddress" onfocus="showInfo(this, 3)" onblur="hideInfo()"/>
+        <label for="CustCity">City:</label>
+        <input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustCity %><% } %>" type="text" name="CustCity" id="CustCity" onfocus="showInfo(this, 4)" onblur="hideInfo()"/>
+        <label for="CustProv">Province: </label>
+        <% if (typeof orderDetails !== 'undefined') { %>
+            <script>
+                window.addEventListener('load', () => {
+                    const provOption = document.querySelector('select[name="CustProv"] > option[value="<%= orderDetails.CustProv %>"]');
+                    if (provOption)
+                        provOption.setAttribute('selected', 'true');
 
-                        const agentOption = document.querySelector('select[name="AgentId"] > option[value="<%= orderDetails.AgentId %>"]');
-                        if (agentOption)
-                            agentOption.setAttribute('selected', 'true');
-                    });
-                </script>
-            <% } %>
-            <select name="CustProv" id="CustProv">
-                <option value="AB">Alberta</option>
-                <option value="BC">British Columbia</option>
-                <option value="MA">Manitoba</option>
-                <option value="NB">New Brunswick</option>
-                <option value="NF">Newfoundland/Labrador</option>
-                <option value="NT">Northwest Territories</option>
-                <option value="NS">Nova Scotia</option>
-                <option value="NU">Nunavut</option>
-                <option value="ON">Ontario</option>
-                <option value="PE">Prince Edward Island</option>
-                <option value="QU">Quebec</option>
-                <option value="SA">Saskatchewan</option>
-                <option value="YU">Yukon</option>
-            </select><br />
-            Country:<input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustCountry %><% } %>" type="text" name="CustCountry" id="CustCountry" onfocus="showInfo(5)" onblur="hideInfo()"/><br />
-            Home Phone:<input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustHomePhone %><% } %>" type="text" name="CustHomePhone" id="CustHomePhone" onfocus="showInfo(6)" onblur="hideInfo()"/><br />
-            Business Phone:<input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustBusPhone %><% } %>" type="text" name="CustBusPhone" id="CustBusPhone" onfocus="showInfo(7)" onblur="hideInfo()"/><br />
-            Email:<input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustEmail %><% } %>" type="text" name="CustEmail" id="CustEmail" onfocus="showInfo(8)" onblur="hideInfo()"/><br />
-            <label for="AgentId">Agent Name: </label>
-            <select name="AgentId" id="AgentId">
-                <option value="1">J.Delton</option>
-                <option value="2">J.Lisle</option>
-                <option value="3">D.Reynolds</option>
-                <option value="4">J.Coville</option>
-                <option value="5">F.Smith</option>
-                <option value="6">B.Dixon</option>
-                <option value="7">B.Jones</option>
-                <option value="8">J.Merill</option>
-                <option value="9">B.Peterson</option>
-            </select><br /><br />
-            <% if (typeof orderDetails !== 'undefined') { %>
+                    const agentOption = document.querySelector('select[name="AgentId"] > option[value="<%= orderDetails.AgentId %>"]');
+                    if (agentOption)
+                        agentOption.setAttribute('selected', 'true');
+                });
+            </script>
+        <% } %>
+        <select name="CustProv" id="CustProv">
+            <option value="AB">Alberta</option>
+            <option value="BC">British Columbia</option>
+            <option value="MA">Manitoba</option>
+            <option value="NB">New Brunswick</option>
+            <option value="NF">Newfoundland/Labrador</option>
+            <option value="NT">Northwest Territories</option>
+            <option value="NS">Nova Scotia</option>
+            <option value="NU">Nunavut</option>
+            <option value="ON">Ontario</option>
+            <option value="PE">Prince Edward Island</option>
+            <option value="QU">Quebec</option>
+            <option value="SA">Saskatchewan</option>
+            <option value="YU">Yukon</option>
+        </select>
+        <label for="CustCountry">Country:</label>
+        <input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustCountry %><% } %>" type="text" name="CustCountry" id="CustCountry" onfocus="showInfo(this, 5)" onblur="hideInfo()"/>
+        <label for="CustHomePhone">Home Phone:</label>
+        <input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustHomePhone %><% } %>" type="text" name="CustHomePhone" id="CustHomePhone" onfocus="showInfo(this, 6)" onblur="hideInfo()"/>
+        <label for="CustBusPhone">Business Phone:</label>
+        <input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustBusPhone %><% } %>" type="text" name="CustBusPhone" id="CustBusPhone" onfocus="showInfo(this, 7)" onblur="hideInfo()"/>
+        <label for="CustEmail">Email:</label>
+        <input <% if (typeof orderDetails !== 'undefined') { %>value="<%= orderDetails.CustEmail %><% } %>" type="text" name="CustEmail" id="CustEmail" onfocus="showInfo(this, 8)" onblur="hideInfo()"/>
+        <label for="AgentId">Agent Name: </label>
+        <select name="AgentId" id="AgentId">
+            <option value="1">J.Delton</option>
+            <option value="2">J.Lisle</option>
+            <option value="3">D.Reynolds</option>
+            <option value="4">J.Coville</option>
+            <option value="5">F.Smith</option>
+            <option value="6">B.Dixon</option>
+            <option value="7">B.Jones</option>
+            <option value="8">J.Merill</option>
+            <option value="9">B.Peterson</option>
+        </select>
+        <% if (typeof orderDetails !== 'undefined') { %>
             <input type="hidden" name="packageId" value="<%= orderDetails.packageDetails.packageId %>">
             <input type="hidden" name="customerUUID" value="<%= orderDetails.packageDetails.customerUUID %>">
             <input type="hidden" name="guests" value="<%= orderDetails.packageDetails.guests %>">
-            <% } %>
-            <button type="button" onclick="validate()">Register</button>
-            <button type="reset" onclick="return confirm('Reset form?');">Reset</button>
-        </form>
-    </section>
-    <%- include('footer') %>
-    </body>
+        <% } %>
+        <button type="button" onclick="validate()">Register</button>
+        <button type="reset" onclick="return confirm('Reset form?');">Reset</button>
+    </form>
+</section>
+<%- include('footer') %>
+</body>
 </html>
