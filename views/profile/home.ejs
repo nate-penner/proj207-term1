@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script>
+            if (!window.sessionStorage.getItem('CustomerUUID'))
+                window.location.href = '/login';
+        </script>
+        <%- include('../meta') %>
+        <title>Travel Experts<%= pageTitle %></title>
+        <%- include('../stylesheets') %>
+        <%- include('../scripts') %>
+        <style>
+            #main-content {
+                width: 75%;
+                margin: 0 auto;
+            }
+            #main-content > h1 {
+                text-align: center;
+                font-size: 1.5em;
+                font-weight: bold;
+                margin-bottom: 1em;
+                margin-top: 1em;
+            }
+            form {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+                grid-column-gap: 1em;
+                grid-row-gap: 1em;
+                width: 40%;
+                margin: 0 auto;
+            }
+            form * {
+                padding: 0.5em;
+            }
+            form label {
+                text-align: right;
+            }
+        </style>
+        <script>
+            window.addEventListener('load', main);
+
+            function main() {
+                document.querySelector('#welcome').innerHTML = `Welcome back, ${window.sessionStorage.getItem('CustFirstName')}`;
+                document.querySelector('#logout').addEventListener('click', () => {
+                    window.sessionStorage.clear();
+                    window.location.href = '/';
+                });
+            }
+        </script>
+    </head>
+    <body>
+    <%- include('../header') %>
+
+    <section id="main-content">
+        <h1 id="welcome"></h1>
+        <button id="logout">Logout</button>
+    </section>
+
+    <%- include('../footer') %>
+    </body>
+</html>

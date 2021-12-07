@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script>
+            if (window.sessionStorage.getItem('CustomerUUID'))
+                window.location.href = '/profile';
+
+        </script>
+        <%- include('../meta') %>
+        <title>Travel Experts<%= pageTitle %></title>
+        <%- include('../stylesheets') %>
+        <%- include('../scripts') %>
+        <style>
+            #main-content {
+                width: 75%;
+                margin: 0 auto;
+            }
+            #main-content > h1 {
+                text-align: center;
+                font-size: 1.5em;
+                font-weight: bold;
+                margin-bottom: 1em;
+                margin-top: 1em;
+            }
+            form {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+                grid-column-gap: 1em;
+                grid-row-gap: 1em;
+                width: 40%;
+                margin: 0 auto;
+            }
+            form * {
+                padding: 0.5em;
+            }
+            form label {
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        <%- include('../header') %>
+
+        <section id="main-content">
+            <h1>Login</h1>
+            <form method="post" action="/login">
+                <label for="customerUUID">Enter your customer ID:</label>
+                <input type="text" name="customerUUID">
+                <button type="submit">Login</button>
+                <button type="reset">Clear</button>
+            </form>
+        </section>
+
+        <%- include('../footer') %>
+    </body>
+</html>

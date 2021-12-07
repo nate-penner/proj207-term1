@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../meta') %>
+        <title>Travel Experts<%= pageTitle %></title>
+        <%- include('../stylesheets') %>
+        <%- include('../scripts') %>
+        <style>
+            #main-content {
+                width: 75%;
+                margin: 0 auto;
+            }
+            #main-content > h1 {
+                text-align: center;
+                font-size: 1.5em;
+                font-weight: bold;
+                margin-bottom: 1em;
+                margin-top: 1em;
+            }
+            form {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+                grid-column-gap: 1em;
+                grid-row-gap: 1em;
+                width: 40%;
+                margin: 0 auto;
+            }
+            form * {
+                padding: 0.5em;
+            }
+            form label {
+                text-align: right;
+            }
+            #main-content a {
+                display: block;
+                text-align: center;
+                color: black;
+                text-decoration: none;
+            }
+            #main-content a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+    <%- include('../header') %>
+
+    <section id="main-content">
+        <h1>No such user exists</h1>
+        <a href="/login">&lt;&lt; Try again</a>
+    </section>
+
+    <%- include('../footer') %>
+    </body>
+</html>
