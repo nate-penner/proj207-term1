@@ -1,7 +1,5 @@
+- Change register page text to Booking when completing a booking
+- Nicer thank you page after booking
+- Give customer their UUID when they sign up
 - Pretty up the contact page
 - Display bookings on customer profile page
-- Nicer thank you page after booking
-- Change register page text to Booking when completing a booking
-- Make social media images transparent
-- Make register page menu link highlighted
-- Give customer their UUID when they sign up

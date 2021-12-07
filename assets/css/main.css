@@ -142,4 +142,7 @@
     .footbox4 {
         grid-area: 1 / 4 / span 2 / span 1;
     }
+    .footbox4 a img:hover {
+        transform: scale(1.1);
+    }
 }
