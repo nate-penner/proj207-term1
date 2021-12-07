@@ -7,7 +7,7 @@ const queries = require('./queries');
 
 // I got angry with WebStorm
 router.get('/', (req, res) => {
-    queries.get('SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages', (err, results, fields) => {
+    queries.get('SELECT * FROM packages', (err, results, fields) => {
         if (err) {
             res.render('404', {message: 'Failed to load vacation packages!'});
         } else {
@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
     });
 });
 router.get('/order', (req, res) => {
-    queries.get(`SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages`, (err, results, fields) => {
+    queries.get(`SELECT * FROM packages`, (err, results, fields) => {
         if (!err) {
             if ('packageId' in req.query) {
                 const validPackages = [];
@@ -133,7 +133,48 @@ router.post('/order', (req, res) => {
 
 // process an order
 router.post('/process', (req, res) => {
+    // Update the customer's information
+    let sql = 'UPDATE customers SET CustFirstName=?, CustLastName=?, CustPostal=?, CustAddress=?, '+
+        'CustCity=?, CustProv=?, CustCountry=?, CustHomePhone=?, CustBusPhone=?, CustEmail=?, AgentId=? '+
+        'WHERE CustomerUUID=?';
+    let values = [
+        req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
+        req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
+        req.body.CustEmail, req.body.AgentId, req.body.customerUUID
+    ];
     console.log(req.body);
-    res.render('vacations/process', {pageTitle: ' - Order placed!', orderDetails: req.body});
+    console.log(values);
+    queries.get(sql, values, (err, results, fields) => {
+        if (err) {
+            console.error(err);
+            res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
+        } else {
+            sql = 'SELECT CustomerId FROM customers WHERE CustomerUUID=?';
+            queries.get(sql, [req.body.customerUUID], (err, results, fields) => {
+                if (err) {
+                    console.error(err);
+                    res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
+                } else {
+                    sql = 'INSERT INTO bookings (BookingDate, TravelerCount, CustomerId, TripTypeId, PackageId) '
+                        + 'VALUES(?, ?, ?, ?, ?)';
+                    values = [
+                        new Date(Date.now()).toISOString(), req.body.guests, results[0].CustomerId, 'L', req.body.packageId
+                    ];
+                    console.log('Values to insert:');
+                    console.log(values);
+                    queries.get(sql, values, (err, results, fields) => {
+                        if (err) {
+                            console.error(err);
+                            res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
+                        } else {
+                            console.log(results);
+                            console.log(`Affected rows for bookings: ${results.affectedRows}`);
+                            res.render('vacations/process', {pageTitle: ' - Order placed!', orderDetails: req.body});
+                        }
+                    });
+                }
+            });
+        }
+    });
 });
 module.exports = router;

@@ -49,6 +49,12 @@
             .package form button {
                 padding: 1em;
             }
+            strong {
+                font-weight: bold;
+            }
+            em {
+                font-style: italic;
+            }
         </style>
     </head>
     <body>
@@ -59,9 +65,26 @@
             <h1><%= params.PkgName %></h1>
             <p style="font-style: italic">Price: $<%= params.PkgBasePrice %></p>
             <p><em>An excellent choice!</em></p>
+            <p><strong>Departure:</strong> <em><%= new Date(params.PkgStartDate).toDateString() %></em></p>
+            <p><strong>Return:</strong> <em><%= new Date(params.PkgEndDate).toDateString() %></em></p>
+            <p><strong>Trip Duration:</strong> <em><%= Math.floor((new Date(params.PkgEndDate).getTime() - new Date(params.PkgStartDate).getTime()) / 1000 / 86400) %> days</em></p>
             <h3>How many people will be traveling? (You may book up to 10 people)</h3>
             <form method="post" action="/vacations/order">
                 <label for="guests">Number of guests:</label>
+                <script>
+                    window.addEventListener('load', () => {
+                        const selectGuests = document.querySelector('select[name="guests"]');
+                        const tripTotal = document.getElementById('trip-total');
+
+                        selectGuests.addEventListener('input', () => {
+                            if (selectGuests instanceof HTMLSelectElement) {
+                                tripTotal.setAttribute('value', (() => {
+                                    return parseInt(selectGuests.options[selectGuests.selectedIndex].value) * <%= params.PkgBasePrice %>;
+                                })());
+                            }
+                        });
+                    });
+                </script>
                 <select name="guests">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -76,6 +99,8 @@
                 </select>
                 <label for="customerUUID">Customer ID (if known):</label>
                 <input type="text" name="customerUUID" maxlength="36">
+                <label for="trip-total">Total, tax included (<strong>$</strong>):</label>
+                <input style="text-align: right" type="text" name="tripTotal" id="trip-total" value="<%= params.PkgBasePrice %>" disabled>
                 <input type="hidden" name="packageId" value="<%= params.PackageId %>">
                 <button type="submit">Submit</button>
                 <button type="reset">Reset</button>
