@@ -1,4 +1,3 @@
-- Change register page text to Booking when completing a booking
 - Nicer thank you page after booking
 - Give customer their UUID when they sign up
 - Pretty up the contact page

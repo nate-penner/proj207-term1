@@ -273,7 +273,7 @@
             <input type="hidden" name="customerUUID" value="<%= orderDetails.packageDetails.customerUUID %>">
             <input type="hidden" name="guests" value="<%= orderDetails.packageDetails.guests %>">
         <% } %>
-        <button type="button" onclick="validate()">Register</button>
+        <button type="button" onclick="validate()"><% if (typeof orderDetails !== 'undefined') { %>Book Package<% } else { %>Register<% } %></button>
         <button type="reset" onclick="return confirm('Reset form?');">Reset</button>
     </form>
 </section>
