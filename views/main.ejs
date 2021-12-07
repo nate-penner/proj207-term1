@@ -7,29 +7,11 @@
         <%- include('scripts') %>
 
         <style>
-            .main-page-grid {
-                width: 100%;
+
+            main {
                 display: grid;
-                grid-template-columns: 1.5fr 2fr 1fr 2fr 1.5fr;
-                border-bottom: 0.15em solid #9b9b9b;
-                border-radius: 5px;
-                box-sizing: border-box;
-                /* Background is visual guide only. Delete when finished */
-                background-color: hotpink;
-                left: 0;
-            }
-
-            .left-margin {
-                /* Grid-area: start row/ start column/ row span/ column span */
-                grid-area: 1 / 1 / span 10 / span 1;
-                border-style: dotted;
-                border-width: 5px;
-            }
-
-            .right-margin {
-                grid-area: 1 / 5 / span 10 / span 1;
-                border-style: dotted;
-                border-width: 5px;
+                width: 75%;
+                margin: 0 auto;
             }
 
             .slideshow-container {
@@ -47,38 +29,60 @@
             .featured-package-container {
                 padding: 5px;
                 grid-area: 2 / 2 / span 2 / span 3;
-                background-color: orange
+                background-color: #FAF2C3;
             }
 
-        .vacation-package {
-            border: 1px solid black;
-            border-radius: 0.5em;
-            margin-bottom: 1em;
-            padding: 1em;
-            background-color: yellow;
-            width: 70%;
+                .vacation-package {
+                    border: 1px solid black;
+                    border-radius: 0.5em;
+                    margin-bottom: 1em;
+                    padding: 1em;
+                    background-color: rgb(194, 233, 254);
+                    width: 70%;
 
-        }
+                }
 
-        .vacation-package .package-info h1 {
-            text-align: left;
-            font-size: 1.25em;
-            font-weight: bold;
-            margin-bottom: 0.5em;
-        }
-        .vacation-package .package-info p {
-            font-style: italic;
-            margin-bottom: 0.5em;
-        }
-        .vacation-package .package-info span {}
-        .vacation-package .order-package {
-            justify-self: center;
-            align-self: center;
-        }
+                .vacation-package .package-info h1 {
+                    text-align: left;
+                    font-size: 1.25em;
+                    font-weight: bold;
+                    margin-bottom: 0.5em;
+                }
+                .vacation-package .package-info p {
+                    font-style: italic;
+                    margin-bottom: 0.5em;
+                }
+                .vacation-package .package-info span {}
+                .vacation-package .order-package {
+                    justify-self: center;
+                    align-self: center;
+                }
+
+            .contact {
+                grid-area: 4/ 2 / span 2 / span 3;
+                background-color: #FAF2C3;
+                padding: 20px 40px 20px 40px;
+
+
+            }
 
         </style>
 
         <script>
+            var slideshowImages = ["media/images/vacations/1/beach.jpg", "media/images/vacations/1/diving.jpg", "media/images/vacations/1/dominican.jpg",
+                "media/images/vacations/1/fireworks.jpg", "media/images/vacations/1/pier.jpg", "media/images/vacations/1/pig.jpg",
+                "media/images/vacations/1/swing.jpg", "media/images/vacations/1/turtle.jpg", "media/images/vacations/2/beach.jpg",
+                "media/images/vacations/2/boat.jpg", "media/images/vacations/2/cliffs.jpg", "media/images/vacations/2/dolphins.jpg",
+                "media/images/vacations/2/hawaii.jpg", "media/images/vacations/2/lava.jpg", "media/images/vacations/2/surfing.jpg",
+                "media/images/vacations/2/swimming.jpg", "media/images/vacations/3/china.jpg", "media/images/vacations/3/china2.jpg",
+                "media/images/vacations/3/hongkong.jpg", "media/images/vacations/3/japan.jpg", "media/images/vacations/3/japan2.jpg",
+                "media/images/vacations/3/korea.jpg", "media/images/vacations/3/philippines.jpg", "media/images/vacations/3/rice.jpg",
+                "media/images/vacations/4/france.jpg", "media/images/vacations/4/germany.jpg", "media/images/vacations/4/greece.jpg",
+                "media/images/vacations/4/italy.jpg", "media/images/vacations/4/london.jpg", "media/images/vacations/4/scotland.jpg",
+                "media/images/vacations/4/switzerland.jpg", "media/images/vacations/4/switzerland2.jpg"];
+
+
+
             window.addEventListener('load', main);
 
             function main() {
@@ -91,113 +95,155 @@
     <body>
         <%- include('header') %>
 
-        <section id="main-content">
+        <main>
+            <div class="slideshow-container" style="text-align:center;">
+                <img id="slide"/>
+            </div>
 
-            <div class="main-page-grid">
-            <!-- Left Page Margin -->
-                <div class="left-margin"> 1
-
-                </div>
-
-                <div class="slideshow-container" style="text-align:center;">
-                    <img id="slide" width="800" height="500"/>
-                </div>
-
-                <div class="featured-package-container">
-
-
-                    <p style="font-size: 2em"> <u> Featured Package </u>
-                        <span style="font-size: 60%; float:right; font-style: italic; font-weight: bold; ">Get this package for 30% off at checkout. Offer lasts until December 20th.</span>
-                    </p>
-
-                    </br>
-
-                    <div class="package">
-
-                        <article id="package-<%= featuredPackage.PackageId %>" class="vacation-package">
-                            <div class="package-container">
-                                <div class="package-info">
-                                    <h1><%= featuredPackage.PkgName %></h1>
-                                    <p><%= featuredPackage.PkgDesc %></p>
-                                        <div class="order-package" style="float:right">
-                                            <form method="get" action="/vacations/order">
-                                                <input type="hidden" name="packageId" value="<%= featuredPackage.PackageId %>">
-                                                <button>Order Now!</button>
-                                            </form>
-                                        </div>
-
-                                    <span>Price: <del>$<%= featuredPackage.PkgBasePrice %></del>
-                                        <script>discount</script></span>
-
-
+            <div class="featured-package-container" style=" padding: 20px 40px 20px 40px;  border-bottom: 3px solid black;">
+                <p style="font-size: 2em"> <u> Featured Package </u>
+                    <span style="font-size: 60%; float:right; font-style: italic; font-weight: bold; ">Book now while this package is still available! Registration closes December 23rd    .</span>
+                </p>
+                </br>
+                <div class="package">
+                    <article id="package-<%= featuredPackage.PackageId %>" class="vacation-package">
+                        <div class="package-container">
+                            <div class="package-info">
+                                <h1><%= featuredPackage.PkgName %></h1>
+                                <p><%= featuredPackage.PkgDesc %></p>
+                                <div class="order-package" style="float:right">
+                                    <form method="get" action="/vacations/order">
+                                        <input type="hidden" name="packageId" value="<%= featuredPackage.PackageId %>">
+                                        <button>Order Now!</button>
+                                    </form>
                                 </div>
-                                <div>
-                                </div>
-
+                                <span>Price:$<%= featuredPackage.PkgBasePrice %></span>
                             </div>
-
-                        </article>
-
-
-                    </div>
-                    <img src="media/images/Banff.jpg" style="max-width: 25%; float: right;">
-
+                        </div>
+                    </article>
                 </div>
+            </div>
 
-            <!-- Right Page Margin -->
-                <div class="right-margin"> 4
-
-                </div>
-
-                <div> 5
-
-                </div>
+            <div class="contact">
+                <p style="font-size: 2em"> <u> Contact an agent today! </u>
 
 
-                <div>6</div>
-                <div>7</div>
-                <div>8</div>
-                <div>9</div>
+
             </div>
 
 
-        </section>
 
-        <script>
+            <script>
 
+                var discount = (parseInt(<%= featuredPackage.PkgBasePrice %>)*(0.7));
 
-            var discount = (parseInt(<%= featuredPackage.PkgBasePrice %>)*(0.7));
+                var slideIndex = 0;
 
-            console.log(discount)
+                slideShow();
 
-            var slideshowImages = ["media/images/Asian/China.jpg",
-                "media/images/Asian/Japan.jpg",
-                "media/images/Asian/Japan2.jpg",
-                "media/images/Asian/Korea.jpg",
-                "media/images/Asian/Philippines.jpg",
-
-                "media/images/Carribean/Beach.jpg",
-                "media/images/Carribean/DominicanRepublic.jpg",
-                "media/images/Carribean/Pier.jpg",
-                "media/images/Carribean/Pig.jpg",
-                "media/images/Carribean/Turtle.jpg" ];
-            var slideIndex = 0;
-
-            slideShow();
-
-            function slideShow() {
-                document.getElementById("slide").src = slideshowImages[slideIndex];
-                slideIndex++;
-                if (slideIndex == slideshowImages.length) { slideIndex = 0; }
-                setTimeout("slideShow()", 5000);
-            }
+                function slideShow() {
+                    console.log("slide index" + slideIndex)
+                    document.getElementById("slide").src = slideshowImages[slideIndex];
+                    slideIndex = Math.floor(Math.random() * (slideshowImages.length ));
+                    setTimeout("slideShow()", 5000);
+                }
 
 
+/*        ordered slideshow function  */
+/*                  function slideShow() {
+                    document.getElementById("slide").src = slideshowImages[slideIndex];
+                    slideIndex++;
+                    if (slideIndex == slideshowImages.length) { slideIndex = 0; }
+                    setTimeout("slideShow()", 5000);
+                }*/
 
-        </script>
 
+            </script>
+
+        </main>
 
         <%- include('footer') %>
+
     </body>
 
 </html>
+
+
+<!--
+
+
+
+
+
+                                            <section id="main-content">
+
+                                                <div class="main-page-grid">
+                                                &lt;!&ndash; Left Page Margin &ndash;&gt;
+                                                    <div class="left-margin"> 1
+
+                                                    </div>
+
+
+                                                    <div class="featured-package-container">
+
+
+                                                        <p style="font-size: 2em"> <u> Featured Package </u>
+                                                            <span style="font-size: 60%; float:right; font-style: italic; font-weight: bold; ">Get this package for 30% off at checkout. Offer lasts until December 20th.</span>
+                                                        </p>
+
+                                                        </br>
+
+                                                        <div class="package">
+
+                                                            <article id="package-<%= featuredPackage.PackageId %>" class="vacation-package">
+                                                                <div class="package-container">
+                                                                    <div class="package-info">
+                                                                        <h1><%= featuredPackage.PkgName %></h1>
+                                                                        <p><%= featuredPackage.PkgDesc %></p>
+                                                                            <div class="order-package" style="float:right">
+                                                                                <form method="get" action="/vacations/order">
+                                                                                    <input type="hidden" name="packageId" value="<%= featuredPackage.PackageId %>">
+                                                                                    <button>Order Now!</button>
+                                                                                </form>
+                                                                            </div>
+
+                                                                        <span>Price: <del>$<%= featuredPackage.PkgBasePrice %></del>
+                                                                            <script>discount</script></span>
+
+
+                                                                    </div>
+                                                                    <div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </article>
+
+
+                                                        </div>
+                                                        <img src="media/images/Banff.jpg" style="max-width: 25%; float: right;">
+
+                                                    </div>
+
+                                                &lt;!&ndash; Right Page Margin &ndash;&gt;
+                                                    <div class="right-margin"> 4
+
+                                                    </div>
+
+                                                    <div> 5
+
+                                                    </div>
+
+
+                                                    <div>6</div>
+                                                    <div>7</div>
+                                                    <div>8</div>
+                                                    <div>9</div>
+                                                </div>
+
+
+                                            </section>
+
+
+
+-->
