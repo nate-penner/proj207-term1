@@ -1,63 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <%- include('../meta') %>
-    <title>Travel Experts<%= pageTitle %></title>
-    <%- include('../stylesheets') %>
-    <%- include('../scripts') %>
-    <style>
-        #main-content {
-            width: 75%;
-            margin: 0 auto;
-        }
-        #main-content > h1 {
-            text-align: center;
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 1em;
-        }
-        .package > h1 {
-            font-size: 2em;
-            text-align: center;
-        }
-        .package > p {
-            margin-top: 1em;
-            text-align: center;
-        }
-        .package > h3 {
-            text-align: center;
-            font-size: 1.25em;
-            margin-top: 1.5em;
-        }
-        .package form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: min-content min-content;
-            grid-row-gap: 1em;
-            grid-column-gap: 1em;
-            width: 35%;
-            margin: 1em auto 0 auto;
-        }
-        .package form label {
-            text-align: right;
-            align-self: center;
-        }
-        .package form select, .package form input[type="text"] {
-            padding: 0.75em;
-            font-weight: bold;
-        }
-        .package form button {
-            padding: 1em;
-        }
-    </style>
-</head>
-<body>
-<%- include('../header') %>
+    <head>
+        <%- include('../meta') %>
+        <title>Travel Experts<%= pageTitle %></title>
+        <%- include('../stylesheets') %>
+        <%- include('../scripts') %>
+        <style>
+            #main-content {
+                width: 75%;
+                margin: 0 auto;
+            }
+            #main-content h1 {
+                text-align: center;
+                font-size: 1.5em;
+                font-weight: bold;
+                margin-bottom: 1em;
+            }
+            #main-content h2 {
+                text-align: center;
+                font-size: 1.25em;
+                font-weight: bold;
+                margin-bottom: 1em;
+            }
+            .confirmation p {
+                font-style: italic;
+                margin-top: 1em;
+                text-align: justify;
+                line-height: 1.5;
+            }
+            .confirmation {
+                display: grid;
+                margin: 0 auto;
+                width: 30%;
+            }
+            .confirmation a {
+                color: #4d4d4d;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <%- include('../header') %>
 
-<section id="main-content">
-Thanks, <%= orderDetails.CustFirstName %>
-</section>
+        <section id="main-content">
+            <article class="confirmation">
+                <h1>Thanks, <%= orderDetails.CustFirstName %>!</h1>
+                <h2>Your order has been processed!</h2>
+                <p style="font-weight: bold">Customer ID: <%= orderDetails.customerUUID %></p>
+                <p>If we have your credit card on file from a previous order, your payment will be processed automatically after 48 hours. You may call us anytime before then if you need to modify/cancel your order, at 403-555-5555</p>
+                <p>To view your order details, please <a href="/login">login</a> with your Customer ID in the top-right corner of the page!</p>
+            </article>
+        </section>
 
-<%- include('../footer') %>
-</body>
+        <%- include('../footer') %>
+    </body>
 </html>

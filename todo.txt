@@ -1,4 +1,3 @@
-- Nicer thank you page after booking
 - Give customer their UUID when they sign up
 - Pretty up the contact page
 - Display bookings on customer profile page
