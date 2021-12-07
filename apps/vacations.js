@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const fm = require('../utilities/fm');
 const path = require('path');
 const queries = require('./queries');
+const crypto = require('crypto');
 
 // I got angry with WebStorm
 router.get('/', (req, res) => {
@@ -134,14 +135,28 @@ router.post('/order', (req, res) => {
 // process an order
 router.post('/process', (req, res) => {
     // Update the customer's information
-    let sql = 'UPDATE customers SET CustFirstName=?, CustLastName=?, CustPostal=?, CustAddress=?, '+
-        'CustCity=?, CustProv=?, CustCountry=?, CustHomePhone=?, CustBusPhone=?, CustEmail=?, AgentId=? '+
-        'WHERE CustomerUUID=?';
-    let values = [
-        req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
-        req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
-        req.body.CustEmail, req.body.AgentId, req.body.customerUUID
-    ];
+    let sql, values;
+    if (req.body.customerUUID === '') {
+        req.body.customerUUID = crypto.randomUUID();
+        sql = 'INSERT INTO customers (CustomerUUID, CustFirstName, CustLastName, CustPostal, CustAddress, '
+            +'CustCity, CustProv, CustCountry, CustHomePhone, CustBusPhone, CustEmail, AgentId) '
+            +'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        values = [
+            req.body.customerUUID, req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
+            req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
+            req.body.CustEmail, req.body.AgentId
+        ];
+    } else {
+        sql = 'UPDATE customers SET CustFirstName=?, CustLastName=?, CustPostal=?, CustAddress=?, '+
+            'CustCity=?, CustProv=?, CustCountry=?, CustHomePhone=?, CustBusPhone=?, CustEmail=?, AgentId=? '+
+            'WHERE CustomerUUID=?';
+        values = [
+            req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
+            req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
+            req.body.CustEmail, req.body.AgentId, req.body.customerUUID
+        ];
+    }
+
     console.log(req.body);
     console.log(values);
     queries.get(sql, values, (err, results, fields) => {
