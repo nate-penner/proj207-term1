@@ -32,31 +32,39 @@
                 background-color: #FAF2C3;
             }
 
-        .vacation-package {
-            border: 1px solid black;
-            border-radius: 0.5em;
-            margin-bottom: 1em;
-            padding: 1em;
-            background-color: yellow;
-            width: 70%;
+                .vacation-package {
+                    border: 1px solid black;
+                    border-radius: 0.5em;
+                    margin-bottom: 1em;
+                    padding: 1em;
+                    background-color: rgb(194, 233, 254);
+                    width: 70%;
 
-        }
+                }
 
-        .vacation-package .package-info h1 {
-            text-align: left;
-            font-size: 1.25em;
-            font-weight: bold;
-            margin-bottom: 0.5em;
-        }
-        .vacation-package .package-info p {
-            font-style: italic;
-            margin-bottom: 0.5em;
-        }
-        .vacation-package .package-info span {}
-        .vacation-package .order-package {
-            justify-self: center;
-            align-self: center;
-        }
+                .vacation-package .package-info h1 {
+                    text-align: left;
+                    font-size: 1.25em;
+                    font-weight: bold;
+                    margin-bottom: 0.5em;
+                }
+                .vacation-package .package-info p {
+                    font-style: italic;
+                    margin-bottom: 0.5em;
+                }
+                .vacation-package .package-info span {}
+                .vacation-package .order-package {
+                    justify-self: center;
+                    align-self: center;
+                }
+
+            .contact {
+                grid-area: 4/ 2 / span 2 / span 3;
+                background-color: #FAF2C3;
+                padding: 20px 40px 20px 40px;
+
+
+            }
 
         </style>
 
@@ -92,17 +100,12 @@
                 <img id="slide"/>
             </div>
 
-            <div class="featured-package-container">
-
-
+            <div class="featured-package-container" style=" padding: 20px 40px 20px 40px;  border-bottom: 3px solid black;">
                 <p style="font-size: 2em"> <u> Featured Package </u>
-                    <span style="font-size: 60%; float:right; font-style: italic; font-weight: bold; ">Get this package for 30% off at checkout. Offer lasts until December 20th.</span>
+                    <span style="font-size: 60%; float:right; font-style: italic; font-weight: bold; ">Book now while this package is still available! Registration closes December 23rd    .</span>
                 </p>
-
                 </br>
-
                 <div class="package">
-
                     <article id="package-<%= featuredPackage.PackageId %>" class="vacation-package">
                         <div class="package-container">
                             <div class="package-info">
@@ -114,22 +117,21 @@
                                         <button>Order Now!</button>
                                     </form>
                                 </div>
-
-                                <span>Price: <del>$<%= featuredPackage.PkgBasePrice %></del>
-                                    <div id="discount">(discount placeholder) </div>              </span>
-
-
+                                <span>Price:$<%= featuredPackage.PkgBasePrice %></span>
                             </div>
                         </div>
-
-
                     </article>
-
-
                 </div>
-                <img src="slideshowImages[1]" style="max-width: 25%; float: right;">
+            </div>
+
+            <div class="contact">
+                <p style="font-size: 2em"> <u> Contact an agent today! </u>
+
+
 
             </div>
+
+
 
             <script>
 
@@ -142,8 +144,8 @@
                 function slideShow() {
                     console.log("slide index" + slideIndex)
                     document.getElementById("slide").src = slideshowImages[slideIndex];
-                    slideIndex = Math.floor(Math.random() * (slideshowImages.length -1));
-                    setTimeout("slideShow()", 1000);
+                    slideIndex = Math.floor(Math.random() * (slideshowImages.length ));
+                    setTimeout("slideShow()", 5000);
                 }
 
 
