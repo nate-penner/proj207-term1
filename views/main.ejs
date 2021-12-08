@@ -15,22 +15,42 @@
             }
 
             .slideshow-container {
+                padding-top: 2em;
+                padding-bottom: 2em;
                 grid-area: 1 / 2 / span 1 / span 3;
                 background-color: #FAF2C3;
+                text-align:center;
+                border-bottom: 3px solid black;
             }
                 #slide {
                     border: 5px double #555;
                 }
 
-                .featured-package {
-
-                }
 
             .featured-package-container {
                 padding: 5px;
                 grid-area: 2 / 2 / span 2 / span 3;
                 background-color: #FAF2C3;
             }
+
+            .packagesLink {
+
+                background-color: #4CAF50;
+                border: 1px solid black;
+                background-color: rgb(194, 233, 254);
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+
+                .packagesLink:hover {
+                    background-color: rgb(174, 213, 234);
+                    border-bottom: 0.15em solid white;
+                }
 
                 .vacation-package {
                     border: 1px solid black;
@@ -62,9 +82,21 @@
                 grid-area: 4/ 2 / span 2 / span 3;
                 background-color: #FAF2C3;
                 padding: 20px 40px 20px 40px;
-
-
             }
+
+                .office {
+                    border: 1px solid black;
+                    border-radius: 0.5em;
+                    margin-bottom: 1em;
+                    padding: 1em;
+                    background-color: rgb(194, 233, 254);
+                    width: 45%;
+                    line-height: 1.8;
+                }
+                    .office > h1 {
+                        font-weight: bold;
+                    }
+
 
         </style>
 
@@ -96,15 +128,22 @@
         <%- include('header') %>
 
         <main>
-            <div class="slideshow-container" style="text-align:center;">
+            <div class="slideshow-container">
                 <img id="slide"/>
             </div>
 
             <div class="featured-package-container" style=" padding: 20px 40px 20px 40px;  border-bottom: 3px solid black;">
                 <p style="font-size: 2em"> <u> Featured Package </u>
-                    <span style="font-size: 60%; float:right; font-style: italic; font-weight: bold; ">Book now while this package is still available! Registration closes December 23rd    .</span>
+                    <span style="font-size: 60%; float:right; font-style: italic; font-weight: bold; color: red;">Book now while this package is still available! Registration closes December 23rd    .</span>
                 </p>
-                </br>
+                <br>
+                <div style="float:right;">
+                    <form method="get" action="/vacations">
+
+
+                        <button class="packagesLink">Browse Available Packages</button>
+                    </form>
+                </div>
                 <div class="package">
                     <article id="package-<%= featuredPackage.PackageId %>" class="vacation-package">
                         <div class="package-container">
@@ -119,14 +158,42 @@
                                 </div>
                                 <span>Price:$<%= featuredPackage.PkgBasePrice %></span>
                             </div>
+
+
                         </div>
                     </article>
+
                 </div>
             </div>
 
             <div class="contact">
                 <p style="font-size: 2em"> <u> Contact an agent today! </u>
+<!-- statically generated for now, change to dynamic in the future to accommodate additional agencies -->
+                    <div class="office" style="float:left">
 
+                    <a href="/contact" >
+                        <img src="../media/profile/JanetDelton.jpg" style="float:right; max-width: 25%;">
+                    </a>
+                    <h1><u>Calgary Office</u></h1> </br>
+
+
+                        Janet Delton </br>
+                        (403) 210-7801 </br>
+                        janet.delton@travelexperts.com </br>
+
+
+                    </div>
+
+                    <div class="office" style="float:right">
+                        <a href="/contact" >
+                            <img src="../media/profile/JaneMerrill.jpg" style="float:right; max-width: 25%;">
+                        </a>
+                        <h1><u>Okotoks Office</u></h1> </br>
+
+                        Jane Merrill </br>
+                        (403) 210-7868 </br>
+                        jane.merrill@travelexperts.com </br>
+                    </div>
 
 
             </div>
