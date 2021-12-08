@@ -146,62 +146,105 @@ router.post('/order', (req, res) => {
 
 // process an order
 router.post('/process', (req, res) => {
+    console.log('RAN PROCESS');
+    console.log(req.body.customerUUID);
     // Update the customer's information
     let sql, values;
-    if (req.body.customerUUID === '') {
-        req.body.customerUUID = crypto.randomUUID();
-        sql = 'INSERT INTO customers (CustomerUUID, CustFirstName, CustLastName, CustPostal, CustAddress, '
-            +'CustCity, CustProv, CustCountry, CustHomePhone, CustBusPhone, CustEmail, AgentId) '
-            +'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        values = [
-            req.body.customerUUID, req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
-            req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
-            req.body.CustEmail, req.body.AgentId
-        ];
-    } else {
-        sql = 'UPDATE customers SET CustFirstName=?, CustLastName=?, CustPostal=?, CustAddress=?, '+
-            'CustCity=?, CustProv=?, CustCountry=?, CustHomePhone=?, CustBusPhone=?, CustEmail=?, AgentId=? '+
-            'WHERE CustomerUUID=?';
-        values = [
-            req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
-            req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
-            req.body.CustEmail, req.body.AgentId, req.body.customerUUID
-        ];
-    }
 
-    console.log(req.body);
-    console.log(values);
+    sql = 'SELECT * FROM customers WHERE CustomerUUID=?';
+    values = [req.body.customerUUID];
+
     queries.get(sql, values, (err, results, fields) => {
         if (err) {
             console.error(err);
             res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
         } else {
-            sql = 'SELECT CustomerId FROM customers WHERE CustomerUUID=?';
-            queries.get(sql, [req.body.customerUUID], (err, results, fields) => {
+            if (results.length < 1) {
+                // Create a new user query
+                console.log(`No such user id: ${req.body.customerUUID}`);
+                req.body.customerUUID = crypto.randomUUID();
+                console.log(`Created new user id ${req.body.customerUUID}`);
+                sql = 'INSERT INTO customers (CustomerUUID, CustFirstName, CustLastName, CustPostal, CustAddress, '
+                    +'CustCity, CustProv, CustCountry, CustHomePhone, CustBusPhone, CustEmail, AgentId) '
+                    +'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                values = [
+                    req.body.customerUUID, req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
+                    req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
+                    req.body.CustEmail, req.body.AgentId
+                ];
+                // res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
+            } else {
+                console.log('The user exists, there was at least one result:');
+                console.log(results);
+                // Update an existing user query
+                sql = 'UPDATE customers SET CustFirstName=?, CustLastName=?, CustPostal=?, CustAddress=?, '+
+                    'CustCity=?, CustProv=?, CustCountry=?, CustHomePhone=?, CustBusPhone=?, CustEmail=?, AgentId=? '+
+                    'WHERE CustomerUUID=?';
+                values = [
+                    req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
+                    req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
+                    req.body.CustEmail, req.body.AgentId, req.body.customerUUID
+                ];
+            }
+            // Run the query
+            queries.get(sql, values, (err, results, fields) => {
                 if (err) {
                     console.error(err);
                     res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
                 } else {
-                    sql = 'INSERT INTO bookings (BookingDate, TravelerCount, CustomerId, TripTypeId, PackageId) '
-                        + 'VALUES(?, ?, ?, ?, ?)';
-                    values = [
-                        new Date(Date.now()).toISOString(), req.body.guests, results[0].CustomerId, 'L', req.body.packageId
-                    ];
-                    console.log('Values to insert:');
-                    console.log(values);
-                    queries.get(sql, values, (err, results, fields) => {
+                    sql = 'SELECT CustomerId FROM customers WHERE CustomerUUID=?';
+                    queries.get(sql, [req.body.customerUUID], (err, results, fields) => {
                         if (err) {
                             console.error(err);
                             res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
                         } else {
-                            console.log(results);
-                            console.log(`Affected rows for bookings: ${results.affectedRows}`);
-                            res.render('vacations/process', {pageTitle: ' - Order placed!', orderDetails: req.body});
+                            sql = 'INSERT INTO bookings (BookingDate, TravelerCount, CustomerId, TripTypeId, PackageId) '
+                                + 'VALUES(?, ?, ?, ?, ?)';
+                            values = [
+                                new Date(Date.now()).toISOString(), req.body.guests, results[0].CustomerId, 'L', req.body.packageId
+                            ];
+                            console.log('Values to insert:');
+                            console.log(values);
+                            queries.get(sql, values, (err, results, fields) => {
+                                if (err) {
+                                    console.error(err);
+                                    res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
+                                } else {
+                                    console.log(results);
+                                    console.log(`Affected rows for bookings: ${results.affectedRows}`);
+                                    res.render('vacations/process', {pageTitle: ' - Order placed!', orderDetails: req.body});
+                                }
+                            });
                         }
                     });
                 }
             });
         }
     });
+
+    //
+    // if (req.body.customerUUID === '') {
+    //     req.body.customerUUID = crypto.randomUUID();
+    //     sql = 'INSERT INTO customers (CustomerUUID, CustFirstName, CustLastName, CustPostal, CustAddress, '
+    //         +'CustCity, CustProv, CustCountry, CustHomePhone, CustBusPhone, CustEmail, AgentId) '
+    //         +'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    //     values = [
+    //         req.body.customerUUID, req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
+    //         req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
+    //         req.body.CustEmail, req.body.AgentId
+    //     ];
+    // } else {
+    //     sql = 'UPDATE customers SET CustFirstName=?, CustLastName=?, CustPostal=?, CustAddress=?, '+
+    //         'CustCity=?, CustProv=?, CustCountry=?, CustHomePhone=?, CustBusPhone=?, CustEmail=?, AgentId=? '+
+    //         'WHERE CustomerUUID=?';
+    //     values = [
+    //         req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
+    //         req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
+    //         req.body.CustEmail, req.body.AgentId, req.body.customerUUID
+    //     ];
+    // }
+    //
+    // console.log(req.body);
+    // console.log(values);
 });
 module.exports = router;

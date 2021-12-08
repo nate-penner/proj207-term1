@@ -52,11 +52,10 @@
 
             <article>
                 <p>
-                    <a href="">Calgary</a>|<a href="">Okotoks</a>
                     <ul>
                         <% agencies.forEach((agency) => { %>
                             <strong>
-                                <h2><%= agency.AgencyCity %> Branch</h2>
+                                <h2 id="<%= agency.AgencyCity %>"><%= agency.AgencyCity %> Branch</h2>
                                 <li>
                                     <%= agency.AgencyAdd %><br>
                                     <%= agency.AgencyCity %>

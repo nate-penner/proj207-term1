@@ -126,6 +126,9 @@
         window.addEventListener('load', main);
 
         function main() {
+            <% if (typeof orderDetails === 'undefined') { %>
+            window.sessionStorage.clear();
+            <% } %>
             document.querySelectorAll('#page-header nav .links').forEach((link) => {
                 if (link.innerHTML === 'Register') {
                     link.style.backgroundColor = '#00aae6';
