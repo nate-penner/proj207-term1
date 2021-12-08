@@ -84,6 +84,8 @@ router.post('/order', (req, res) => {
             // Get the packages from the database
             queries.get('SELECT PackageId FROM packages', (err, packageIds, fields) => {
                 if (err) {
+                    console.log(err);
+                    console.log(packageIds);
                     res.render('404', {message: 'Sorry, we are unable to process your request at this time! Please call (403)-555-5555 for assistance!'});
                 } else {
                     // make a list of valid package ID's from the database
@@ -101,7 +103,7 @@ router.post('/order', (req, res) => {
 
                     // Validate the packageID receive against the valid packageIDs, and check that the number of
                     // guests is within the accepted range
-                    if (req.body.packageId in validPackages && validRange(req.body.guests)) {
+                    if (validPackages.includes(parseInt(req.body.packageId)) && validRange(req.body.guests)) {
                         console.log(`The customer's uuid is ${req.body.customerUUID}`);
                         console.log(validUUIDs.includes(req.body.customerUUID));
 
@@ -110,6 +112,8 @@ router.post('/order', (req, res) => {
                             // the order
                             queries.get(`SELECT * FROM customers WHERE CustomerUUID='${req.body.customerUUID}'`, (err, results, fields) => {
                                 if (err || results.length !== 1) {
+                                    console.log(results);
+                                    console.log(err);
                                     res.render('404', {message: 'Something went wrong with your order. Please call (403)-555-5555 for assistance!'})
                                 } else {
                                     results[0].packageDetails = req.body;
@@ -124,6 +128,14 @@ router.post('/order', (req, res) => {
                             res.render('register', {pageTitle: ' - Customer Registration', orderDetails: {packageDetails: req.body}, foo: 'bar'});
                         }
                     } else {
+                        console.log('Failed here');
+                        console.log(`Valid packages: ${validPackages}`);
+                        console.log(`Selected package: ${req.body.packageId}`);
+                        console.log(`Guests: ${req.body.guests}`);
+                        console.log('Package is valid: ' + req.body.packageId in validPackages);
+                        console.log(`Type of packageId: ${typeof req.body.packageId}`);
+                        validPackages.forEach((pkg) => console.log(typeof pkg));
+                        console.log(`Range is valid: ${validRange(req.body.guests)}`);
                         res.render('404', {message: 'Something went wrong with your order. Please call (403)-555-5555 for assistance!'});
                     }
                 }

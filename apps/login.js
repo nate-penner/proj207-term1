@@ -17,7 +17,27 @@ router.post('/', (req, res) => {
             res.render('login/failure', {pageTitle: '- Failed login attempt'});
         } else {
             const customer = results[0];
-            res.render('login/success', {customerInfo: customer, pageTitle: `- Welcome, ${customer.CustFirstName}!`});
+            console.log(customer);
+            sql = 'SELECT * FROM bookings INNER JOIN packages ON bookings.PackageId=packages.PackageId WHERE CustomerId=?';
+            values = [customer.CustomerId];
+            queries.get(sql, values, (err, results, fields) => {
+                if (err) {
+                    console.error(err);
+                    res.render(
+                        'profile/home',
+                        {errorMessage: `Sorry, ${customer.CustFirstName}, we had some trouble retrieving your bookings. Please contact us at 403-555-5555 for assistance! We are happy to assist you.`,
+                            customerInfo: customer, pageTitle: `- Welcome, ${customer.CustFirstName}!`});
+                } else {
+                    console.log('BOOKINGS');
+                    results = results.filter(booking => booking.PackageId !== null);
+                    res.render('profile/home',
+                        {
+                            customerInfo: customer,
+                            pageTitle: `- Welcome, ${customer.CustFirstName}!`,
+                            bookings: results
+                        });
+                }
+            });
         }
     });
 });

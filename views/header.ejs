@@ -1,3 +1,13 @@
+<script>
+    (function(window, undefined) {
+        window.addEventListener('load', main);
+
+        function main() {
+            if (window.sessionStorage.getItem('CustomerUUID'))
+                document.querySelector('.login').setAttribute('href', `/profile/${window.sessionStorage.getItem('CustomerUUID')}`);
+        }
+    })(window);
+</script>
 <div id="container">
 <header id="page-header">
     <section class="banner">

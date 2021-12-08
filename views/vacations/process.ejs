@@ -48,7 +48,7 @@
                 <h2>Your order has been processed!</h2>
                 <p style="font-weight: bold">Customer ID: <%= orderDetails.customerUUID %></p>
                 <p>If we have your credit card on file from a previous order, your payment will be processed automatically after 48 hours. You may call us anytime before then if you need to modify/cancel your order, at 403-555-5555</p>
-                <p>To view your order details, please <a href="/login">login</a> with your Customer ID in the top-right corner of the page!</p>
+                <p>To view your order details, please visit your <a href="/profile/<%= orderDetails.customerUUID %>">profile</a> page! Your Customer ID has been emailed to you, but to be safe, save it in a file or write it down for future use!</p>
             </article>
         </section>
 
