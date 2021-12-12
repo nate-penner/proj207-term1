@@ -2,6 +2,8 @@
 * apps/queries
 * Description:
 *   Simplifies the handling of SQL queries and handling the connection.end() smoothly
+* Author: Nate Penner
+* When: December 2021
 * */
 
 const mysql = require('mysql');     // for SQL queries

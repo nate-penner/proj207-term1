@@ -2,7 +2,7 @@
 * Some useful utilities
 *
 * Author: Nate Penner
-* When
+* When: December 2021
 * */
 const api = module.exports = {};
 

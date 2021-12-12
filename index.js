@@ -1,3 +1,9 @@
+/*
+* Travelexperts Main Web Application
+* Author: Nate Penner
+* When: December 2021
+* */
+
 require('dotenv').config();             // load environment variables from .env into process.env
 const express = require('express');     // use express for routing
 const argv = require('./argv');         // for handling command line args
