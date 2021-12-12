@@ -1,3 +1,9 @@
+/*
+* Main style rules
+* Author(s): Nate Penner, William Rust
+* When: December 2021
+* */
+
 /* This file is for global CSS style rules that apply on every page of the website */
 
 /* Universal styles */
@@ -49,7 +55,7 @@
     #page-header .banner span {
         display: block;
         font-size: 2em;
-        color: #555555;
+        color: #000000;
         justify-self: center;
         align-self: center;
         text-align: center;
@@ -71,7 +77,8 @@
         /*padding: 40px 20px;*/
         box-sizing: content-box;
         display: flex;
-        color: #555555;
+        color: #000000;
+        font-size: 1.5em;
         text-decoration: none;
         text-transform: uppercase;
         font-weight: bold;
@@ -112,13 +119,19 @@
         width: 100%;
     }
 
+    footer a {
+        color: black;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
     .foot-grid-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         grid-gap: 5px;
         grid-auto-rows: 50px;
         background-color: deepskyblue;
-        color: #555555;
+        color: #000000;
         font-weight: bold;
         border-top: 0.15em solid #9b9b9b;
 

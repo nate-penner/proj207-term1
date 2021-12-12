@@ -1,3 +1,9 @@
+/*
+* Some useful utilities
+*
+* Author: Nate Penner
+* When
+* */
 const api = module.exports = {};
 
 api.randRange = (min, max) => {

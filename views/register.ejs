@@ -1,3 +1,8 @@
+<!--
+Customer Registration page
+Author: Joshua Zellmer
+When: December 2021
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,6 +128,11 @@
         }
     </script>
     <script>
+        /*
+        * Log out previous user if someone tries to register
+        * Author: Nate Penner
+        * When: December 2021
+        * */
         window.addEventListener('load', main);
 
         function main() {
@@ -144,6 +154,7 @@
             display: grid;
             grid-template-columns: 1fr;
             grid-auto-rows: min-content;
+            background-color: #FAF2C3;
         }
         form {
             display: grid;

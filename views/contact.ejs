@@ -1,3 +1,8 @@
+<!--
+Agency contacts page
+Author: Gurjeet Kaur Pawar
+When: December 2021
+-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,7 +10,6 @@
         <meta charset="UTF-8">
         <title>Title</title>
         <%- include('stylesheets') %>
-        <%- include('scripts') %>
         <script>
             window.addEventListener('load', main);
 
@@ -19,10 +23,16 @@
             }
         </script>
         <style>
+            #main-content {
+                background-color: #FAF2C3;
+                width: 75%;
+                margin: 0 auto;
+            }
             #main-content h1 {
                 text-align: center;
                 font-size: 2em;
                 font-weight: bold;
+                margin-top: 1em;
             }
             #main-content article {
                 width: 15%;
@@ -53,6 +63,7 @@
             <article>
                 <p>
                     <ul>
+                    <hr>
                         <% agencies.forEach((agency) => { %>
                             <strong>
                                 <h2 id="<%= agency.AgencyCity %>"><%= agency.AgencyCity %> Branch</h2>
@@ -83,6 +94,7 @@
                                     </strong>
                                 </li>
                             </strong>
+                            <hr>
                         <% }) %>
                     </ul>
                 </p>

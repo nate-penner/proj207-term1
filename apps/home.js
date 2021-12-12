@@ -1,8 +1,16 @@
-const express = require('express');
+/*
+* Home page app
+* Author: Nate Penner
+* When: December 2021
+* */
+
 const mysql = require('mysql');
-const router = express.Router();
+const router = require('express').Router();
 const {randRange} = require('../utilities');
 
+const FEATURED = 0;
+
+// Handles the route for '/' (the home page)
 router.get('/', (req, res) => {
     const conn = mysql.createConnection({
         host: process.env.DB_HOST,
@@ -14,6 +22,7 @@ router.get('/', (req, res) => {
         if (err)
             res.render('main', {pageTitle: ''});
         else {
+            // Get the featured package
             conn.query('SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages', (err, results, fields) => {
                 console.log(results);
                 if (err || results.length < 1) {
@@ -22,7 +31,7 @@ router.get('/', (req, res) => {
                     res.render('main', {pageTitle: ''});
                 }
                 else {
-                    res.render('main', {pageTitle: '', featuredPackage: results[0]});
+                    res.render('main', {pageTitle: '', featuredPackage: results[FEATURED]});
                     conn.end((err) => {
                         if (err)
                             console.log(`Problem ending the connection: ${err}`);
@@ -33,4 +42,5 @@ router.get('/', (req, res) => {
     });
 });
 
+// Export the router
 module.exports = router;

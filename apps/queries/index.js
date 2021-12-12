@@ -1,7 +1,20 @@
-const mysql = require('mysql');
+/*
+* apps/queries
+* Description:
+*   Simplifies the handling of SQL queries and handling the connection.end() smoothly
+* */
 
+const mysql = require('mysql');     // for SQL queries
+
+// Export the API
 const api = module.exports = {};
 
+// Performs an SQL query and runs the callback with the results
+//
+// Possible function signatures:
+// api.get(query, callback) - performs a query and calls back with (err, results, fields)
+// api.get(query, args, callback) - performs a query as a prepared statement, inserting args into query, then
+//                                  calls back with (err, results, fields)
 api.get = function(query, args, callback) {
     let isPrepared = false;
 
@@ -11,6 +24,7 @@ api.get = function(query, args, callback) {
     if (!isPrepared)
         callback = args;
 
+    // Create the SQl connection
     const conn = mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,

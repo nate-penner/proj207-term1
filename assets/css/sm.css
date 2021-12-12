@@ -1,3 +1,10 @@
+/*
+* Small screen style rules
+* Author: Nate Penner
+* When: December 2021
+* */
+
+/* Demonstration styles for a smaller screen for the vacation packages page */
 #page-header {
     width: 100%;
     display: grid;

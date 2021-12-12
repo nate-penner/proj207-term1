@@ -1,13 +1,20 @@
-const express = require('express');
-const router = express.Router();
-const mysql = require('mysql');
-const fm = require('../utilities/fm');
-const path = require('path');
-const queries = require('./queries');
-const crypto = require('crypto');
+/*
+* Vacation packages app
+* Author: Nate Penner
+* When: December 2021
+* */
 
-// I got angry with WebStorm
+// includes
+const router = require('express').Router();     // for routing
+const fm = require('../utilities/fm');          // utility for reading a directory
+const path = require('path');                   // working with paths
+const queries = require('./queries');           // a utility for simpler SQl queries
+const crypto = require('crypto');               // for generating user ID;s
+
+// Handles the route for /vacations
 router.get('/', (req, res) => {
+
+    // get the vacation packages from the database
     queries.get('SELECT * FROM packages', (err, results, fields) => {
         if (err) {
             res.render('404', {message: 'Failed to load vacation packages!'});
@@ -19,7 +26,7 @@ router.get('/', (req, res) => {
             if (err || results.length < 1)
                 res.render('404', {message: 'Failed to load vacation packages!'});
             else {
-                // get image paths;
+                // get paths to the vacation photos that go with each package
                 results.forEach((result) => {
                     result.images = [];
                     const fileNames = fm.getFileNamesSync(path.join(__dirname, `../media/images/vacations/${result.PackageId}`));
@@ -34,15 +41,23 @@ router.get('/', (req, res) => {
                     }
                     console.log(result);
                 });
+
+                // render the vacation packages page
                 res.render('vacations/home', {pageTitle: 'Vacation Packages', vacations: results});
             }
         }
     });
 });
+
+// Handles the route to GET the /vacations/order page to order a package
 router.get('/order', (req, res) => {
+
+    // Gets the vacation packages from the database
     queries.get(`SELECT * FROM packages`, (err, results, fields) => {
+        console.log(req.query);
         if (!err) {
             if ('packageId' in req.query) {
+                // Validate the request package against the packageID in the database
                 const validPackages = [];
                 results.forEach((pkg) => validPackages.push(pkg.PackageId));
                 console.log(`Valid packages: ${validPackages}`);
@@ -52,6 +67,8 @@ router.get('/order', (req, res) => {
                 if (validPackages.includes(parseInt(req.query.packageId))) {
                     console.log('Yes, it is valid');
                     res.render('vacations/order', {params: results[req.query.packageId - 1], pageTitle: '- Order a Vacation Package'});
+
+                    // Make sure to return so that the redirect will be skipped
                     return;
                 } else {
                     console.log('No, it is invalid');
@@ -63,9 +80,7 @@ router.get('/order', (req, res) => {
     });
 });
 
-// For the prototype, I used a convoluted set of queries to prevent the possibility of SQL injection in the packageID
-// and customerUUID, in the interest of getting the prototype up and running. In production, we will update the security
-// of the site with some middlewares like helmet and sanitizer, and setup HTTPS via letsencrypt
+// Handle the data posted to /vacations/order
 router.post('/order', (req, res) => {
     // Get all customer UUID's from the database
     queries.get('SELECT CustomerUUID FROM customers', (err, uuids, fields) => {
@@ -154,6 +169,7 @@ router.post('/process', (req, res) => {
     sql = 'SELECT * FROM customers WHERE CustomerUUID=?';
     values = [req.body.customerUUID];
 
+    // Get customers from the database
     queries.get(sql, values, (err, results, fields) => {
         if (err) {
             console.error(err);
@@ -172,7 +188,6 @@ router.post('/process', (req, res) => {
                     req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
                     req.body.CustEmail, req.body.AgentId
                 ];
-                // res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
             } else {
                 console.log('The user exists, there was at least one result:');
                 console.log(results);
@@ -186,6 +201,7 @@ router.post('/process', (req, res) => {
                     req.body.CustEmail, req.body.AgentId, req.body.customerUUID
                 ];
             }
+
             // Run the query
             queries.get(sql, values, (err, results, fields) => {
                 if (err) {
@@ -193,6 +209,8 @@ router.post('/process', (req, res) => {
                     res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
                 } else {
                     sql = 'SELECT CustomerId FROM customers WHERE CustomerUUID=?';
+
+                    // Get the info of the existing or new customer
                     queries.get(sql, [req.body.customerUUID], (err, results, fields) => {
                         if (err) {
                             console.error(err);
@@ -205,6 +223,8 @@ router.post('/process', (req, res) => {
                             ];
                             console.log('Values to insert:');
                             console.log(values);
+
+                            // Save the customer's booking
                             queries.get(sql, values, (err, results, fields) => {
                                 if (err) {
                                     console.error(err);
@@ -221,30 +241,7 @@ router.post('/process', (req, res) => {
             });
         }
     });
-
-    //
-    // if (req.body.customerUUID === '') {
-    //     req.body.customerUUID = crypto.randomUUID();
-    //     sql = 'INSERT INTO customers (CustomerUUID, CustFirstName, CustLastName, CustPostal, CustAddress, '
-    //         +'CustCity, CustProv, CustCountry, CustHomePhone, CustBusPhone, CustEmail, AgentId) '
-    //         +'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    //     values = [
-    //         req.body.customerUUID, req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
-    //         req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
-    //         req.body.CustEmail, req.body.AgentId
-    //     ];
-    // } else {
-    //     sql = 'UPDATE customers SET CustFirstName=?, CustLastName=?, CustPostal=?, CustAddress=?, '+
-    //         'CustCity=?, CustProv=?, CustCountry=?, CustHomePhone=?, CustBusPhone=?, CustEmail=?, AgentId=? '+
-    //         'WHERE CustomerUUID=?';
-    //     values = [
-    //         req.body.CustFirstName, req.body.CustLastName, req.body.CustPostal, req.body.CustAddress,
-    //         req.body.CustCity, req.body.CustProv, req.body.CustCountry, req.body.CustHomePhone, req.body.CustBusPhone,
-    //         req.body.CustEmail, req.body.AgentId, req.body.customerUUID
-    //     ];
-    // }
-    //
-    // console.log(req.body);
-    // console.log(values);
 });
+
+// Export the router
 module.exports = router;

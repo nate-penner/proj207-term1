@@ -1,5 +1,10 @@
-const express = require('express');
-const router = express.Router();
+/*
+* Customer registration app
+* Author: Joshua Zellmer
+* When: December 2021
+* */
+
+const router = require('express').Router();
 const mysql = require("mysql");
 const crypto = require('crypto');
 
@@ -101,7 +106,9 @@ router.post("/newcustomer", (req, res)=>{
 
                 // You may want to render a page here saying thanks for registering, your Customer Id is [uuid] or
                 // something, so they can use it for accessing their file next time
-                res.send(result.affectedRows + " record(s) inserted");
+                // res.send(result.affectedRows + " record(s) inserted");
+                req.body.CustomerUUID = uuid;
+                res.render('newcustomer', {pageTitle: '- Thank you for registering with us!', details: req.body});
                 conn.end(function(err) {
                     if (err) throw err;
                 });

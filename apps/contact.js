@@ -1,3 +1,8 @@
+/*
+* Agency contact app
+* Author: Gurjeet Kaur Pawar
+* When: December 2021
+* */
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
@@ -10,6 +15,7 @@ const db = mysql.createConnection({
     database: process.env.DB_NAME
 });
 
+// Handles the route for /contact
 router.get("/",(req, res) =>{
 
     var agencies = [];
@@ -54,4 +60,5 @@ router.get("/",(req, res) =>{
     });
 });
 
+// Export the router
 module.exports = router;
