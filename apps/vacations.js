@@ -54,24 +54,16 @@ router.get('/order', (req, res) => {
 
     // Gets the vacation packages from the database
     queries.get(`SELECT * FROM packages`, (err, results, fields) => {
-        console.log(req.query);
         if (!err) {
             if ('packageId' in req.query) {
                 // Validate the request package against the packageID in the database
                 const validPackages = [];
                 results.forEach((pkg) => validPackages.push(pkg.PackageId));
-                console.log(`Valid packages: ${validPackages}`);
-                console.log(`Selected package: ${req.query.packageId}`);
-                console.log('hi');
-                console.log(typeof req.query.packageId);
                 if (validPackages.includes(parseInt(req.query.packageId))) {
-                    console.log('Yes, it is valid');
                     res.render('vacations/order', {params: results[req.query.packageId - 1], pageTitle: '- Order a Vacation Package'});
 
                     // Make sure to return so that the redirect will be skipped
                     return;
-                } else {
-                    console.log('No, it is invalid');
                 }
             }
         }
@@ -93,14 +85,11 @@ router.post('/order', (req, res) => {
                 if (uuid.CustomerUUID !== null)
                     validUUIDs.push(uuid.CustomerUUID);
             });
-            console.log('Valid uuids:');
-            console.log(validUUIDs);
 
             // Get the packages from the database
             queries.get('SELECT PackageId FROM packages', (err, packageIds, fields) => {
                 if (err) {
-                    console.log(err);
-                    console.log(packageIds);
+                    console.error(err);
                     res.render('404', {message: 'Sorry, we are unable to process your request at this time! Please call (403)-555-5555 for assistance!'});
                 } else {
                     // make a list of valid package ID's from the database
@@ -119,38 +108,26 @@ router.post('/order', (req, res) => {
                     // Validate the packageID receive against the valid packageIDs, and check that the number of
                     // guests is within the accepted range
                     if (validPackages.includes(parseInt(req.body.packageId)) && validRange(req.body.guests)) {
-                        console.log(`The customer's uuid is ${req.body.customerUUID}`);
-                        console.log(validUUIDs.includes(req.body.customerUUID));
 
                         if (validUUIDs.includes(req.body.customerUUID)) {
                             // If the customer is already registered, then pull their info from the database and process
                             // the order
                             queries.get(`SELECT * FROM customers WHERE CustomerUUID='${req.body.customerUUID}'`, (err, results, fields) => {
                                 if (err || results.length !== 1) {
-                                    console.log(results);
                                     console.log(err);
                                     res.render('404', {message: 'Something went wrong with your order. Please call (403)-555-5555 for assistance!'})
                                 } else {
                                     results[0].packageDetails = req.body;
-                                    console.log(results);
                                     res.render('register', {orderDetails: results[0], pageTitle: '- Order processed!'});
                                 }
                             });
                         } else {
                             // If it's a new customer, then redirect them to the registration page and pass along
                             // the order details
-                            console.log(req.body);
                             res.render('register', {pageTitle: ' - Customer Registration', orderDetails: {packageDetails: req.body}, foo: 'bar'});
                         }
                     } else {
-                        console.log('Failed here');
-                        console.log(`Valid packages: ${validPackages}`);
-                        console.log(`Selected package: ${req.body.packageId}`);
-                        console.log(`Guests: ${req.body.guests}`);
-                        console.log('Package is valid: ' + req.body.packageId in validPackages);
-                        console.log(`Type of packageId: ${typeof req.body.packageId}`);
                         validPackages.forEach((pkg) => console.log(typeof pkg));
-                        console.log(`Range is valid: ${validRange(req.body.guests)}`);
                         res.render('404', {message: 'Something went wrong with your order. Please call (403)-555-5555 for assistance!'});
                     }
                 }
@@ -161,8 +138,6 @@ router.post('/order', (req, res) => {
 
 // process an order
 router.post('/process', (req, res) => {
-    console.log('RAN PROCESS');
-    console.log(req.body.customerUUID);
     // Update the customer's information
     let sql, values;
 
@@ -177,9 +152,7 @@ router.post('/process', (req, res) => {
         } else {
             if (results.length < 1) {
                 // Create a new user query
-                console.log(`No such user id: ${req.body.customerUUID}`);
                 req.body.customerUUID = crypto.randomUUID();
-                console.log(`Created new user id ${req.body.customerUUID}`);
                 sql = 'INSERT INTO customers (CustomerUUID, CustFirstName, CustLastName, CustPostal, CustAddress, '
                     +'CustCity, CustProv, CustCountry, CustHomePhone, CustBusPhone, CustEmail, AgentId) '
                     +'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
@@ -189,8 +162,6 @@ router.post('/process', (req, res) => {
                     req.body.CustEmail, req.body.AgentId
                 ];
             } else {
-                console.log('The user exists, there was at least one result:');
-                console.log(results);
                 // Update an existing user query
                 sql = 'UPDATE customers SET CustFirstName=?, CustLastName=?, CustPostal=?, CustAddress=?, '+
                     'CustCity=?, CustProv=?, CustCountry=?, CustHomePhone=?, CustBusPhone=?, CustEmail=?, AgentId=? '+
@@ -221,8 +192,6 @@ router.post('/process', (req, res) => {
                             values = [
                                 new Date(Date.now()).toISOString(), req.body.guests, results[0].CustomerId, 'L', req.body.packageId
                             ];
-                            console.log('Values to insert:');
-                            console.log(values);
 
                             // Save the customer's booking
                             queries.get(sql, values, (err, results, fields) => {
@@ -230,8 +199,6 @@ router.post('/process', (req, res) => {
                                     console.error(err);
                                     res.render('404', {message: 'Unable to process your order. Please call 403-555-5555 for assistance!'});
                                 } else {
-                                    console.log(results);
-                                    console.log(`Affected rows for bookings: ${results.affectedRows}`);
                                     res.render('vacations/process', {pageTitle: ' - Order placed!', orderDetails: req.body});
                                 }
                             });

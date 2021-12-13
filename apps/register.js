@@ -8,8 +8,6 @@ const router = require('express').Router();
 const mysql = require("mysql");
 const crypto = require('crypto');
 
-console.log('This file ran');
-
 let errorMessage;
 function verifyData(customer)
 {
@@ -74,7 +72,6 @@ function verifyData(customer)
 
 
 router.get("/", (req, res)=>{
-    console.log('Rendering register');
     res.render('register', {pageTitle: '- Customer Registration'});
     // res.sendFile(__dirname + "/views/register.ejs", function (err) {
     //     if (err) throw err; // Pass errors to Express.
@@ -83,7 +80,6 @@ router.get("/", (req, res)=>{
 
 router.post("/newcustomer", (req, res)=>{
     //pass the request body to a verification function, and if it is okay, update the database
-    console.log("Body: " + req.body);
     if (verifyData(req.body))
     {
         let conn = mysql.createConnection({
@@ -102,7 +98,6 @@ router.post("/newcustomer", (req, res)=>{
                 req.body.CustCity, req.body.CustProv, req.body.CustPostal, req.body.CustCountry, req.body.CustHomePhone,
                 req.body.CustBusPhone, req.body.CustEmail, req.body.AgentId], function (err, result) {
                 if (err) throw err;
-                console.log(result.affectedRows + " record(s) inserted");
 
                 // You may want to render a page here saying thanks for registering, your Customer Id is [uuid] or
                 // something, so they can use it for accessing their file next time

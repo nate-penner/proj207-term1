@@ -17,7 +17,6 @@ router.get('/:uuid', (req, res) => {
     }
 
     const uuid = req.params.uuid;
-    console.log(`uuid is ${uuid}`);
     // let sql = 'SELECT * FROM customers INNER JOIN bookings ON customers.CustomerId=bookings.CustomerId WHERE customers.CustomerUUID=?';
     let sql = 'SELECT * FROM customers WHERE CustomerUUID=?';
     let values = [uuid];
@@ -42,8 +41,6 @@ router.get('/:uuid', (req, res) => {
                 } else {
                     let bookings = results;
                     bookings = bookings.filter(booking => booking.PackageId !== null);
-                    console.log('Bookings:');
-                    console.log(results);
 
                     // Render the profile with bookings
                     res.render('profile/home', {pageTitle: `- Welcome, ${customerInfo.CustFirstName}!`, customerInfo: customerInfo, bookings: bookings});

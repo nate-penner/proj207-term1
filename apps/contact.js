@@ -35,7 +35,7 @@ router.get("/",(req, res) =>{
                     "AgencyPhoneNo": result[i].AgncyPhone,
                     "AgencyFax": result[i].AgncyFax,
                 };
-                // console.log("agent: "+agent);
+
                 agencies.push(agency);
             }
             db.query("SELECT * FROM agents", function (err3, result3, fields3) {
@@ -48,12 +48,8 @@ router.get("/",(req, res) =>{
                         "PhoneNo": result3[i].AgtBusPhone,
                         "Email": result3[i].AgtEmail,
                     };
-                    // console.log("agent: "+agent);
                     agents.push(agent);
                 }
-                console.log("Rendering")
-                console.log(agencies)
-                console.log(agents)
                 res.render("contact",{'agencies': agencies,'agents':agents});
             });
         });

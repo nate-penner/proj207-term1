@@ -24,10 +24,7 @@ router.get('/', (req, res) => {
         else {
             // Get the featured package
             conn.query('SELECT PackageId, PkgName, PkgDesc, PkgBasePrice FROM packages', (err, results, fields) => {
-                console.log(results);
                 if (err || results.length < 1) {
-                    console.log(err);
-                    console.log(results.length);
                     res.render('main', {pageTitle: ''});
                 }
                 else {

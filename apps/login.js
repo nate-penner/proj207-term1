@@ -20,7 +20,6 @@ router.post('/', (req, res) => {
 
     // Check if the user exists based on the UUID submitted with the request
     queries.get(sql, values, (err, results, fields) => {
-        console.log('Login attempted');
         console.log(req.body);
         if (err || results.length !== 1) {
             console.log(err);
@@ -29,7 +28,6 @@ router.post('/', (req, res) => {
             res.render('login/failure', {pageTitle: '- Failed login attempt'});
         } else {
             const customer = results[0];
-            console.log(customer);
             sql = 'SELECT * FROM bookings INNER JOIN packages ON bookings.PackageId=packages.PackageId WHERE CustomerId=?';
             values = [customer.CustomerId];
 
@@ -44,7 +42,6 @@ router.post('/', (req, res) => {
                         {errorMessage: `Sorry, ${customer.CustFirstName}, we had some trouble retrieving your bookings. Please contact us at 403-555-5555 for assistance! We are happy to assist you.`,
                             customerInfo: customer, pageTitle: `- Welcome, ${customer.CustFirstName}!`});
                 } else {
-                    console.log('BOOKINGS');
                     results = results.filter(booking => booking.PackageId !== null);
 
                     // Otherwise, render the profile page with the bookings. If there are no bookings, the ejs page
